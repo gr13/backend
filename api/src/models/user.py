@@ -34,17 +34,17 @@ class UserModel(db.Model):
         assert "@" in email
         return email
 
-    def __init__(self, email, username, _password):
-        self.email = email
-        self.username = username
-        self.password = self.set_password(_password)
+    def __init__(self, **kwargs):
+        self.email = kwargs["email"]
+        self.username = kwargs["username"]
+        self.password = self.set_password(kwargs["password"])
 
     def json(self):
         # right = UserRightModel.find_by_id(self.right_id)
         return {"id": self.id,
                 "email": self.email,
                 "right_id": self.right_id,
-                "rights": self.rights.json(),
+                "rights": self.rights,
                 "username": self.username,
                 "position": self.position,
                 "can_edit": self.can_edit,
