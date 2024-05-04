@@ -1,0 +1,72 @@
+version: "3"
+
+services:
+    db:
+        # M1 processor require platform
+        platform: linux/x86_64
+        image: mysql:latest
+        build: ./mysql
+        restart: always
+        environment:
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_DATABASE=${DATABASE_NAME}
+            - MYSQL_CHARSET=utf8mb4
+            - MYSQL_COLLATION=utf8mb4_general_ci
+            - MYSQL_ALLOW_EMPTY_PASSWORD=no
+        volumes:
+            - ./mysql:/docker-entrypoint-initdb.d
+            - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+            - ../db:/var/lib/mysql
+            - ../logs/mysql:/var/log/mysql
+        ports:
+            - 3306:3306
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        restart: always
+        depends_on:
+            - db
+        environment:
+            - PMA_HOST=db
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        ports:
+            - 8080:80
+        # use http://localhost:8080
+    api:
+        build: ./api
+        container_name: api
+        restart: always
+        volumes:
+            - ./api/:/var/www/app
+            - ../logs/api/api.log:/var/log/api.log
+        environment:
+            - FLASK_APP=/src/run.py
+            - FLASK_SECRET_KEY=${FLASK_SECRET_KEY}
+            - MYSQL_HOST=db
+            - MYSQL_USER=root
+            - MYSQL_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_DB=${DATABASE_NAME}
+            - MYSQL_CURSORCLASS=DictCursor
+            - DEBUG=1
+        expose:
+            - 9000
+        # use http://localhost:8000 to run
+        # http://127.0.0.1:5000
+
+    # ui:
+    #   build: ./ui
+    #   container_name: ui
+    #   restart: always
+    #   expose:
+    #     - 80
+
+    nginx:
+        build: ./nginx
+        container_name: nginx
+        restart: always
+        volumes:
+            - ../logs/nginx:/var/log/nginx/
+        ports:
+            - "8000:8000"
+            - "8001:80"
