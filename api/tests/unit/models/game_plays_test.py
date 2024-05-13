@@ -44,6 +44,7 @@ class GamePlayTest(BaseTest):
         game_play = self._create_game_play()
         expected = {
             "id": None,
+            "user_id": 1,
             "player_name": "player",
             "player_id": None,
             "game_id": None,
@@ -51,6 +52,10 @@ class GamePlayTest(BaseTest):
             "answer": "A",
             "is_answer_correct": False,
             "hide": False,
+            "user": None,
+            "player": None,
+            "game": None,
+            "question": None,
         }
         actual: Dict = game_play.json()
         self.assertDictEqual(actual, expected,
