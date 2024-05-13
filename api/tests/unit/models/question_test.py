@@ -9,7 +9,7 @@ from src.models.question import QuestionModel  # noqa:E402
 from tests.base_test import BaseTest  # noqa:E402
 
 
-class QuestionsTest(BaseTest):
+class QuestionTest(BaseTest):
     @staticmethod
     def _create_question() -> QuestionModel:
         """

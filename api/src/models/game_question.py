@@ -19,7 +19,7 @@ class GameQuestionModel(db.Model):
     )
     question_order = db.Column(db.Integer, nullable=False)
 
-    hide = db.Column(db.Boolean(), default=False)
+    hide = db.Column(db.Boolean(), nullable=False, default=False)
 
     game = db.relationship("GameModel")
     question = db.relationship("QuestionModel")
