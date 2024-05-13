@@ -1,4 +1,5 @@
 CREATE DATABASE IF NOT EXISTS game_db;
+CREATE DATABASE IF NOT EXISTS test_db;
 use game_db;
 
 SET global general_log = on;
@@ -10,10 +11,11 @@ CREATE TABLE IF NOT EXISTS users (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     ts TIMESTAMP  DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     email VARCHAR(255) NOT NULL,
-    password VARCHAR(110) NOT NULL,
+    password VARCHAR(256) NOT NULL,
     right_id SMALLINT UNSIGNED NOT NULL,
     username VARCHAR(100) NOT NULL,
     position VARCHAR(100) NOT NULL,
+    can_validate SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     can_edit SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     can_seelog SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     can_seeusers SMALLINT UNSIGNED NOT NULL DEFAULT 0,
@@ -22,6 +24,7 @@ CREATE TABLE IF NOT EXISTS users (
     log_comment VARCHAR(255) NOT NULL DEFAULT "",
     PRIMARY KEY (id),
     INDEX rights (right_id)
+    UNIQUE (email)
 );
 
 CREATE TABLE IF NOT EXISTS users_log (
@@ -93,6 +96,7 @@ DELIMITER ;
 CREATE TABLE IF NOT EXISTS rights(
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     user_right VARCHAR(20) NOT NULL,
+    hide SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     log_user_id INT UNSIGNED DEFAULT 0,
     PRIMARY KEY (id),
     UNIQUE (user_right)
@@ -104,6 +108,7 @@ CREATE TABLE IF NOT EXISTS rights_log(
     logger_event VARCHAR(50),
     log_id INT UNSIGNED,
     user_right VARCHAR(20) NOT NULL,
+    hide SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     log_user_id INT UNSIGNED DEFAULT 0,
     PRIMARY KEY (id),
     UNIQUE (user_right),
@@ -113,22 +118,24 @@ CREATE TABLE IF NOT EXISTS rights_log(
 
 DELIMITER ;;
 CREATE TRIGGER rights_log_ai AFTER INSERT ON rights FOR EACH ROW
-INSERT INTO rights_log(logger_event, log_id, user_right, log_user_id)
+INSERT INTO rights_log(logger_event, log_id, user_right, hide, log_user_id)
     VALUES (
            "insert",
            NEW.id,
            NEW.user_right,
-           NEW.log_user_id
+           NEW.log_user_id,
+           NEW.hide
            );;
 DELIMITER ;
 DELIMITER ;;
 CREATE TRIGGER rights_log_au AFTER UPDATE ON rights FOR EACH ROW
-INSERT INTO rights_log(logger_event, log_id, user_right, log_user_id)
+INSERT INTO rights_log(logger_event, log_id, user_right, hide, log_user_id)
     VALUES (
            "update",
            NEW.id,
            NEW.user_right,
-           NEW.log_user_id
+           NEW.log_user_id,
+           NEW.hide
            );;
 DELIMITER ;
 
@@ -208,6 +215,7 @@ CREATE TABLE IF NOT EXISTS question_difficulties(
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     difficulty int NOT NULL,
     difficulty_name VARCHAR(10) NOT NULL,
+    hide SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     log_user_id INT UNSIGNED DEFAULT 0,
     PRIMARY KEY (id),
     UNIQUE (difficulty),
@@ -221,6 +229,7 @@ CREATE TABLE IF NOT EXISTS question_difficulties_log(
     log_id INT UNSIGNED,
     difficulty int NOT NULL,
     difficulty_name VARCHAR(10) NOT NULL,
+    hide SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     log_user_id INT UNSIGNED DEFAULT 0,
     PRIMARY KEY (id),
     UNIQUE (difficulty),
@@ -231,23 +240,25 @@ CREATE TABLE IF NOT EXISTS question_difficulties_log(
 
 DELIMITER ;;
 CREATE TRIGGER question_difficulties_log_ai AFTER INSERT ON question_difficulties FOR EACH ROW
-INSERT INTO question_difficulties_log(logger_event, log_id, difficulty, difficulty_name, log_user_id)
+INSERT INTO question_difficulties_log(logger_event, log_id, difficulty, difficulty_name, hide, log_user_id)
     VALUES (
            "insert",
            NEW.id,
            NEW.difficulty,
            NEW.difficulty_name,
+           NEW.hide,
            NEW.log_user_id
            );;
 DELIMITER ;
 DELIMITER ;;
 CREATE TRIGGER question_difficulties_log_au AFTER UPDATE ON question_difficulties FOR EACH ROW
-INSERT INTO question_difficulties_log(logger_event, log_id, difficulty, difficulty_name, log_user_id)
+INSERT INTO question_difficulties_log(logger_event, log_id, difficulty, difficulty_name, hide, log_user_id)
     VALUES (
            "update",
            NEW.id,
            NEW.difficulty,
            NEW.difficulty_name,
+           NEW.hide,
            NEW.log_user_id
            );;
 DELIMITER ;
@@ -267,6 +278,7 @@ CREATE TABLE IF NOT EXISTS chapters(
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     chapter INT NOT NULL,
     chapter_name VARCHAR(255) NOT NULL,
+    hide SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     log_user_id INT UNSIGNED DEFAULT 0,
     PRIMARY KEY (id),
     UNIQUE (chapter),
@@ -280,6 +292,7 @@ CREATE TABLE IF NOT EXISTS chapters_log(
     log_id INT UNSIGNED,
     chapter INT NOT NULL,
     chapter_name VARCHAR(255) NOT NULL,
+    hide SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     log_user_id INT UNSIGNED DEFAULT 0,
     PRIMARY KEY (id),
     UNIQUE (chapter),
@@ -290,23 +303,25 @@ CREATE TABLE IF NOT EXISTS chapters_log(
 
 DELIMITER ;;
 CREATE TRIGGER chapters_log_ai AFTER INSERT ON chapters FOR EACH ROW
-INSERT INTO chapters_log(logger_event, log_id, chapter, chapter_name, log_user_id)
+INSERT INTO chapters_log(logger_event, log_id, chapter, chapter_name, hide, log_user_id)
     VALUES (
            "insert",
            NEW.id,
            NEW.chapter,
            NEW.chapter_name,
+           NEW.hide,
            NEW.log_user_id
            );;
 DELIMITER ;
 DELIMITER ;;
 CREATE TRIGGER chapters_log_au AFTER UPDATE ON chapters FOR EACH ROW
-INSERT INTO chapters_log(logger_event, log_id, chapter, chapter_name, log_user_id)
+INSERT INTO chapters_log(logger_event, log_id, chapter, chapter_name, hide, log_user_id)
     VALUES (
            "update",
            NEW.id,
            NEW.chapter,
            NEW.chapter_name,
+           NEW.hide,
            NEW.log_user_id
            );;
 DELIMITER ;
@@ -334,6 +349,7 @@ CREATE TABLE IF NOT EXISTS sub_chapters(
     chapter_id int,
     sub_chapter INT NOT NULL,
     sub_chapter_name VARCHAR(255) NOT NULL,
+    hide SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     log_user_id INT UNSIGNED DEFAULT 0,
     PRIMARY KEY (id),
     UNIQUE (sub_chapter_name)
@@ -347,6 +363,7 @@ CREATE TABLE IF NOT EXISTS sub_chapters_log(
     chapter_id int,
     sub_chapter INT NOT NULL,
     sub_chapter_name VARCHAR(255) NOT NULL,
+    hide SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     log_user_id INT UNSIGNED DEFAULT 0,
     PRIMARY KEY (id),
     UNIQUE (sub_chapter_name),
@@ -356,56 +373,58 @@ CREATE TABLE IF NOT EXISTS sub_chapters_log(
 
 DELIMITER ;;
 CREATE TRIGGER sub_chapters_log_ai AFTER INSERT ON sub_chapters FOR EACH ROW
-INSERT INTO sub_chapters_log(logger_event, log_id, chapter_id, sub_chapter, sub_chapter_name, log_user_id)
+INSERT INTO sub_chapters_log(logger_event, log_id, chapter_id, sub_chapter, sub_chapter_name, hide, log_user_id)
     VALUES (
            "insert",
            NEW.id,
            NEW.chapter_id,
            NEW.sub_chapter,
            NEW.sub_chapter_name,
+           NEW.hide,
            NEW.log_user_id
            );;
 DELIMITER ;
 DELIMITER ;;
 CREATE TRIGGER sub_chapters_log_au AFTER UPDATE ON sub_chapters FOR EACH ROW
-INSERT INTO sub_chapters_log(logger_event, log_id, chapter_id, sub_chapter, sub_chapter_name, log_user_id)
+INSERT INTO sub_chapters_log(logger_event, log_id, chapter_id, sub_chapter, sub_chapter_name, hide, log_user_id)
     VALUES (
            "update",
            NEW.id,
            NEW.chapter_id,
            NEW.sub_chapter,
            NEW.sub_chapter_name,
+           NEW.hide,
            NEW.log_user_id
            );;
 DELIMITER ;
 
-INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (1, 0, "All");
+INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (1, 0, "All 1");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (1, 1, "The Emergency Medical System");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (1, 2, "Legal and Ethical Issues");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (1, 3, "Communication");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (1, 4, "Documentation and Record Keeping");
-INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (2, 0, "All");
+INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (2, 0, "All 2");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (2, 1, "Health andd Well-Being");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (2, 2, "Critical Incident Stress");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (2, 3, "Infection Control");
-INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (3, 0, "All");
+INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (3, 0, "All 3");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (3, 1, "Emergency Scene Management and Primary Assessment");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (3, 2, "Secondary Assessment");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (3, 3, "Lifting and Carrying");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (3, 4, "Multiple Patient Incidents");
-INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (4, 0, "All");
+INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (4, 0, "All 4");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (4, 1, "Respiratory Disease");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (4, 2, "Airway Obstructions");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (4, 3, "Establishing and Maintaining the Airway");
-INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (5, 0, "All");
+INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (5, 0, "All 5");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (5, 1, "Oxygen Administration");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (5, 2, "Artificital Ventilation");
-INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (6, 0, "All");
+INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (6, 0, "All 6");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (6, 1, "Cardiovascular Disease");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (6, 2, "Cerebrovascular Emergencies (Stroke/TIA)");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (6, 3, "Cardiopulmonary Resuscitation");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (6, 4, "Automated External Defibrillation");
-INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (7, 0, "All");
+INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (7, 0, "All 7");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (7, 1, "Shock");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (7, 2, "Wound Management");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (7, 3, "Eye Injuries");
@@ -413,19 +432,19 @@ INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALU
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (7, 5, "Chest Injuries");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (7, 6, "Gastrointestinal and Genitourinary");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (7, 7, "Dental Emergencies");
-INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (8, 0, "All");
+INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (8, 0, "All 8");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (8, 1, "Diabetes");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (8, 2, "Seizures");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (8, 3, "Unconsciousness and Fainting");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (8, 4, "General Pharmacology");
-INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (9, 0, "All");
+INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (9, 0, "All 9");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (9, 1, "Head, Spinal and Pelvic Injuries");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (9, 2, "Bone, Joint and Muscle Injuries");
-INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (10, 0, "All");
+INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (10, 0, "All 10");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (10, 1, "Heat and Cold-Related Emergencies");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (10, 2, "Poisons, Bites and Stings");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (10, 3, "Aquatic Emergencies");
-INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (11, 0, "All");
+INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (11, 0, "All 11");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (11, 1, "Emergency Childbirth, Miscarriage and Neonates");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (11, 2, "Pediatric Patients");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (11, 3, "Geriatric Patients");
@@ -433,7 +452,7 @@ INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALU
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (11, 5, "Special Needs and Palliative Care");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (11, 6, "Behavioral Emergencies");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (11, 7, "Substance Abuse");
-INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (12, 0, "All");
+INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (12, 0, "All 12");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (12, 1, "Special Rescue Situations");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (12, 2, "Chemical, Biological, Radiological, Nuclear and Explosive Events (CBRNE)");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (12, 3, "Extended Patient Care");
@@ -441,7 +460,7 @@ INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALU
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (12, 5, "Death in Remote Areas");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (12, 6, "First Aid Stations and Rooms");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (12, 7, "Ambulance Operations and Maintenance");
-INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (13, 0, "All");
+INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (13, 0, "All 13");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (13, 1, "Anatomy and Physiology");
 INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (13, 2, "Medical Terminology");
 
@@ -467,6 +486,7 @@ CREATE TABLE IF NOT EXISTS questions(
     correct_answer_text VARCHAR(255) NOT NULL,
     answer_img VARCHAR(20) NOT NULL DEFAULT 'default.jpg',
     is_validated SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    hide SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     log_user_id INT UNSIGNED DEFAULT 0,
     PRIMARY KEY (id)
 );
@@ -490,6 +510,7 @@ CREATE TABLE IF NOT EXISTS questions_log(
     correct_answer_text VARCHAR(255) NOT NULL,
     answer_time INT NOT NULL DEFAULT 60,
     answer_img VARCHAR(20) NOT NULL DEFAULT 'default.jpg',
+    hide SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     is_validated SMALLINT UNSIGNED NOT NULL DEFAULT 0,
 
     log_user_id INT UNSIGNED DEFAULT 0,
@@ -501,7 +522,7 @@ CREATE TABLE IF NOT EXISTS questions_log(
 DELIMITER ;;
 CREATE TRIGGER questions_log_ai AFTER INSERT ON questions FOR EACH ROW
 INSERT INTO questions_log(logger_event, log_id, level_id, difficulty_id, chapter_id, sub_chapter_id, question, image_file, answer_A, answer_B, answer_C,
-            answer_D, correct_answer, correct_answer_text, answer_time, answer_img, is_validated, log_user_id)
+            answer_D, correct_answer, correct_answer_text, answer_time, answer_img, is_validated, hide, log_user_id)
     VALUES (
            "insert",
            NEW.id,
@@ -520,13 +541,14 @@ INSERT INTO questions_log(logger_event, log_id, level_id, difficulty_id, chapter
            NEW.answer_time,
            NEW.answer_img,
            NEW.is_validated,
+           NEW.hide,
            NEW.log_user_id
            );;
 DELIMITER ;
 DELIMITER ;;
 CREATE TRIGGER questions_log_au AFTER UPDATE ON questions FOR EACH ROW
 INSERT INTO questions_log(logger_event, log_id, level_id, difficulty_id, chapter_id, sub_chapter_id, question, image_file, answer_A, answer_B, answer_C,
-            answer_D, correct_answer, correct_answer_text, answer_time, answer_img, is_validated, log_user_id)
+            answer_D, correct_answer, correct_answer_text, answer_time, answer_img, is_validated, hide, log_user_id)
     VALUES (
            "update",
            NEW.id,
@@ -545,6 +567,7 @@ INSERT INTO questions_log(logger_event, log_id, level_id, difficulty_id, chapter
            NEW.answer_time,
            NEW.answer_img,
            NEW.is_validated,
+           NEW.hide,
            NEW.log_user_id
            );;
 DELIMITER ;
@@ -559,6 +582,7 @@ CREATE TABLE IF NOT EXISTS game_questions(
     game_id int NOT NULL,
     question_id int NOT NULL,
     question_order int NOT NULL,
+    hide SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     log_user_id INT UNSIGNED DEFAULT 0,
     PRIMARY KEY (id)
 );
@@ -571,6 +595,7 @@ CREATE TABLE IF NOT EXISTS game_questions_log(
     game_id int NOT NULL,
     question_id int NOT NULL,
     question_order int NOT NULL,
+    hide SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     log_user_id INT UNSIGNED DEFAULT 0,
     PRIMARY KEY (id),
     INDEX log_id (log_id),
@@ -579,25 +604,27 @@ CREATE TABLE IF NOT EXISTS game_questions_log(
 
 DELIMITER ;;
 CREATE TRIGGER game_questions_log_ai AFTER INSERT ON game_questions FOR EACH ROW
-INSERT INTO game_questions_log(logger_event, log_id, game_id, question_id, question_order, log_user_id)
+INSERT INTO game_questions_log(logger_event, log_id, game_id, question_id, question_order, hide, log_user_id)
     VALUES (
            "insert",
            NEW.id,
            NEW.game_id,
            NEW.question_id,
            NEW.question_order,
+           NEW.hide,
            NEW.log_user_id
            );;
 DELIMITER ;
 DELIMITER ;;
 CREATE TRIGGER game_questions_log_au AFTER UPDATE ON game_questions FOR EACH ROW
-INSERT INTO game_questions_log(logger_event, log_id, game_id, question_id, question_order, log_user_id)
+INSERT INTO game_questions_log(logger_event, log_id, game_id, question_id, question_order, hide, log_user_id)
     VALUES (
            "update",
            NEW.id,
            NEW.game_id,
            NEW.question_id,
            NEW.question_order,
+           NEW.hide,
            NEW.log_user_id
            );;
 DELIMITER ;
@@ -618,6 +645,7 @@ CREATE TABLE IF NOT EXISTS games(
     is_random SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     is_multiplayer SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     number_of_questions INT UNSIGNED DEFAULT 0,
+    hide SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     log_user_id INT UNSIGNED DEFAULT 0,
     PRIMARY KEY (id)
 );
@@ -635,6 +663,7 @@ CREATE TABLE IF NOT EXISTS games_log(
     approved_user_id int,
     is_random SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     is_multiplayer SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    hide SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     log_user_id INT UNSIGNED DEFAULT 0,
     PRIMARY KEY (id),
     INDEX log_id (log_id),
@@ -644,7 +673,7 @@ CREATE TABLE IF NOT EXISTS games_log(
 DELIMITER ;;
 CREATE TRIGGER games_log_ai AFTER INSERT ON games FOR EACH ROW
 INSERT INTO games_log(logger_event, log_id, user_id, game_uid, game_description,
-            recommend, approved, approved_user_id, is_random, is_multiplayer, log_user_id)
+            recommend, approved, approved_user_id, is_random, is_multiplayer, hide, log_user_id)
     VALUES (
            "insert",
            NEW.id,
@@ -656,13 +685,14 @@ INSERT INTO games_log(logger_event, log_id, user_id, game_uid, game_description,
            NEW.approved_user_id,
            NEW.is_random,
            NEW.is_multiplayer,
+           NEW.hide,
            NEW.log_user_id
            );;
 DELIMITER ;
 DELIMITER ;;
 CREATE TRIGGER games_log_au AFTER UPDATE ON games FOR EACH ROW
 INSERT INTO games_log(logger_event, log_id, user_id, game_uid, game_description,
-            recommend, approved, approved_user_id, is_random, is_multiplayer, log_user_id)
+            recommend, approved, approved_user_id, is_random, is_multiplayer, hide, log_user_id)
     VALUES (
            "update",
            NEW.id,
@@ -674,6 +704,7 @@ INSERT INTO games_log(logger_event, log_id, user_id, game_uid, game_description,
            NEW.approved_user_id,
            NEW.is_random,
            NEW.is_multiplayer,
+           NEW.hide,
            NEW.log_user_id
            );;
 DELIMITER ;
@@ -692,6 +723,7 @@ CREATE TABLE IF NOT EXISTS game_plays(
     question_id INT NOT NULL,
     answer VARCHAR(1),
     is_answer_correct SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    hide SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     log_user_id INT UNSIGNED DEFAULT 0,
     PRIMARY KEY (id)
 );
@@ -708,6 +740,7 @@ CREATE TABLE IF NOT EXISTS game_plays_log(
     question_id INT NOT NULL,
     answer VARCHAR(1),
     is_answer_correct SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    hide SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     log_user_id INT UNSIGNED DEFAULT 0,
     PRIMARY KEY (id),
     INDEX log_id (log_id),
@@ -717,7 +750,7 @@ CREATE TABLE IF NOT EXISTS game_plays_log(
 DELIMITER ;;
 CREATE TRIGGER game_plays_log_ai AFTER INSERT ON game_plays FOR EACH ROW
 INSERT INTO game_plays_log(logger_event, log_id, user_id, player_name, player_id,
-            game_id, question_id, answer, is_answer_correct, log_user_id)
+            game_id, question_id, answer, is_answer_correct, hide, log_user_id)
     VALUES (
            "insert",
            NEW.id,
@@ -728,13 +761,14 @@ INSERT INTO game_plays_log(logger_event, log_id, user_id, player_name, player_id
            NEW.question_id,
            NEW.answer,
            NEW.is_answer_correct,
+           NEW.hide,
            NEW.log_user_id
            );;
 DELIMITER ;
 DELIMITER ;;
 CREATE TRIGGER game_plays_log_au AFTER UPDATE ON game_plays FOR EACH ROW
 INSERT INTO game_plays_log(logger_event, log_id, user_id, player_name, player_id,
-            game_id, question_id, answer, is_answer_correct, log_user_id)
+            game_id, question_id, answer, is_answer_correct, hide, log_user_id)
     VALUES (
            "update",
            NEW.id,
@@ -745,6 +779,7 @@ INSERT INTO game_plays_log(logger_event, log_id, user_id, player_name, player_id
            NEW.question_id,
            NEW.answer,
            NEW.is_answer_correct,
+           NEW.hide,
            NEW.log_user_id
            );;
 DELIMITER ;

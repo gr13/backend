@@ -5,7 +5,12 @@ class QuestionLevelModel(db.Model):
     __tablename__ = "question_levels"
 
     id = db.Column(db.Integer, primary_key=True)
-    question_level = db.Column(db.Integer, nullable=False, default=0)
+    question_level = db.Column(
+        db.Integer,
+        nullable=False,
+        default=0,
+        unique=True
+    )
 
     def __init__(self, question_level):
         self.question_level = question_level

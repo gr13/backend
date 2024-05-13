@@ -5,8 +5,8 @@ class QuestionDifficultyModel(db.Model):
     __tablename__ = "question_difficulties"
 
     id = db.Column(db.Integer, primary_key=True)
-    difficulty = db.Column(db.Integer, nullable=False)
-    difficulty_name = db.Column(db.String(10), nullable=False)
+    difficulty = db.Column(db.Integer, nullable=False, unique=True)
+    difficulty_name = db.Column(db.String(10), nullable=False, unique=True)
 
     def __init__(self, difficulty: int, difficulty_name: str):
         self.difficulty = difficulty

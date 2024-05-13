@@ -23,7 +23,9 @@ class ChapterModel(db.Model):
             "id": self.id,
             "chapter": self.chapter,
             "chapter_name": self.chapter_name,
-            "sub_chapters": self.sub_chapters,
+            "sub_chapters": [
+                sub_chapter.json() for sub_chapter in self.sub_chapters
+            ],
         }
 
     @classmethod

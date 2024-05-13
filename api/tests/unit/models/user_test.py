@@ -39,20 +39,22 @@ class UserTest(BaseTest):
         """
         Creates user model and checks the returned json
         """
-        user = self._create_user()
-        expected = {
-            "id": None,
-            "email":
-            "email@email.com",
-            "right_id": None,
-            "rights": None,
-            "username": "name",
-            "position": None,
-            "can_edit": None,
-            "can_seelog": None,
-            "can_seeusers": None,
-            "hide": None,
-        }
-        actual: Dict = user.json()
-        self.assertEqual(actual, expected,
-            f"User JSON is incorrect expected: {expected}, actual: {actual}")
+        with self.app_context():
+            user = self._create_user()
+            expected = {
+                "id": None,
+                "email":
+                "email@email.com",
+                "right_id": 2,
+                "right": None,
+                "username": "name",
+                "can_validate": False,
+                "can_edit": False,
+                "can_seelog": False,
+                "can_seeusers": False,
+                "hide": False
+            }
+            actual: Dict = user.json()
+            self.assertDictEqual(actual, expected,
+                f"User JSON is incorrect expected: {expected}, actual: "
+                    "{actual}")

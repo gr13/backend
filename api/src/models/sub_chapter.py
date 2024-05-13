@@ -9,8 +9,9 @@ class SubChapterModel(db.Model):
         db.Integer,
         db.ForeignKey("chapters.id"),
         nullable=False,
+        unique=False,
     )
-    sub_chapter = db.Column(db.Integer, nullable=False, unique=True)
+    sub_chapter = db.Column(db.Integer, nullable=False, unique=False)
     sub_chapter_name = db.Column(db.String(255), unique=True)
 
     # lazy="dynamic" does not create the list of items
@@ -27,7 +28,7 @@ class SubChapterModel(db.Model):
     def json(self):
         return {
             "id": self.id,
-            "chapter": self.chapter,
+            "chapter_id": self.chapter_id,
             "sub_chapter": self.sub_chapter,
             "sub_chapter_name": self.sub_chapter_name,
         }

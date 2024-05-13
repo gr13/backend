@@ -11,23 +11,29 @@ class UserModel(db.Model):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(255))
-    password = db.Column(db.String(110))
+    email = db.Column(db.String(255), unique=True)
+    password = db.Column(db.String(256))
     right_id = db.Column(
         db.Integer,
         db.ForeignKey("rights.id"),
+        unique=False,
+        nullable=False,
         default=1
     )
-    rights = db.relationship("UserRightModel", back_populates="users")
+    right = db.relationship(
+        "UserRightModel",
+        back_populates="users",
+    )
 
     username = db.Column(db.String(10), default="")
     position = db.Column(db.String(100), default="")
 
-    can_edit = db.Column(db.Boolean(), default=0)
-    can_seelog = db.Column(db.Boolean(), default=0)
-    can_seeusers = db.Column(db.Boolean(), default=0)
+    can_validate = db.Column(db.Boolean(), default=False)
+    can_edit = db.Column(db.Boolean(), default=False)
+    can_seelog = db.Column(db.Boolean(), default=False)
+    can_seeusers = db.Column(db.Boolean(), default=False)
 
-    hide = db.Column(db.Boolean(), default=0)
+    hide = db.Column(db.Boolean(), default=False)
 
     @validates("email")
     def validate_email(self, key, email):
@@ -38,20 +44,28 @@ class UserModel(db.Model):
         self.email = kwargs["email"]
         self.username = kwargs["username"]
         self.password = self.set_password(kwargs["password"])
+        self.right_id = 2
+        self.position = "Not in use"
+        self.can_validate = False
+        self.can_edit = False
+        self.can_seelog = False
+        self.can_seeusers = False
+        self.hide = False
 
     def json(self):
         # right = UserRightModel.find_by_id(self.right_id)
-        return {"id": self.id,
-                "email": self.email,
-                "right_id": self.right_id,
-                "rights": self.rights,
-                "username": self.username,
-                "position": self.position,
-                "can_edit": self.can_edit,
-                "can_seelog": self.can_seelog,
-                "can_seeusers": self.can_seeusers,
-                "hide": self.hide
-                }
+        return {
+            "id": self.id,
+            "email": self.email,
+            "right_id": self.right_id,
+            "right": self.right.json() if self.right else None,
+            "username": self.username,
+            "can_validate": self.can_validate,
+            "can_edit": self.can_edit,
+            "can_seelog": self.can_seelog,
+            "can_seeusers": self.can_seeusers,
+            "hide": self.hide
+        }
 
     @classmethod
     def find_by_email(cls, email):
