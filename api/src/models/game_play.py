@@ -1,7 +1,7 @@
 from src.db import db
 
 
-class GamePlaysModel(db.Model):
+class GamePlayModel(db.Model):
     __tablename__ = "game_plays"
 
     id = db.Column(db.Integer, primary_key=True)
