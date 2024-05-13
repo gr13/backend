@@ -12,6 +12,7 @@ class GamePlayModel(db.Model):
     question_id = db.Column(db.Integer, nullable=True, unique=False)
     answer = db.Column(db.String(1))
     is_answer_correct = db.Column(db.Boolean(), default=0)
+    hide = db.Column(db.Boolean(), default=False)
 
     # lazy="dynamic" does not create the list of items
     # unless it is necessary
@@ -19,8 +20,14 @@ class GamePlayModel(db.Model):
     #     "UserModel", lazy="dynamic", back_populates="rights"
     # )
 
-    def __init__(self, user_right):
-        self.user_right = user_right
+    def __init__(self, **kwargs):
+        self.user_id = kwargs["user_id"]
+        self.player_name = kwargs["player_name"]
+        self.player_id = kwargs["player_id"] if kwargs.get("player_id") else None  # noqa: E501
+        self.question_id = kwargs["question_id"]
+        self.answer = kwargs["answer"]
+        self.is_answer_correct = kwargs["is_answer_correct"]
+        self.hide = False
 
     def json(self):
         return {
@@ -31,6 +38,7 @@ class GamePlayModel(db.Model):
             "question_id": self.question_id,
             "answer": self.answer,
             "is_answer_correct": self.is_answer_correct,
+            "hide": self.hide,
         }
 
     @classmethod
