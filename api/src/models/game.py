@@ -7,7 +7,10 @@ class GameModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(
         db.Integer,
-        nullable=True
+        db.ForeignKey("users.id"),
+        unique=False,
+        nullable=True,
+        default=1
     )
     game_uid = db.Column(db.Integer, nullable=False)
     game_description = db.Column(db.String(255), nullable=False)
@@ -19,11 +22,7 @@ class GameModel(db.Model):
     number_of_questions = db.Column(db.Integer, nullable=False, default=15)
     hide = db.Column(db.Boolean(), default=False)
 
-    # lazy="dynamic" does not create the list of items
-    # unless it is necessary
-    # users = db.relationship(
-    #     "UserModel", lazy="dynamic", back_populates="rights"
-    # )
+    user = db.relationship("UserModel")
 
     def __init__(self, **kwargs):
         self.user_id = kwargs["user_id"]
@@ -50,6 +49,7 @@ class GameModel(db.Model):
             "is_multiplayer": self.is_multiplayer,
             "number_of_questions": self.number_of_questions,
             "hide": self.hide,
+            "user": self.user,
         }
 
     @classmethod

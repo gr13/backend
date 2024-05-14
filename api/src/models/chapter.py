@@ -8,21 +8,23 @@ class ChapterModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     chapter = db.Column(db.Integer, nullable=False, unique=True)
     chapter_name = db.Column(db.String(255), unique=True)
-
-    # lazy="dynamic" does not create the list of items
-    # unless it is necessary
+    hide = db.Column(db.Boolean(), default=False)
     sub_chapters = db.relationship(
         "SubChapterModel", back_populates="chapter", lazy="dynamic",
     )
 
-    def __init__(self, user_right):
-        self.user_right = user_right
+    def __init__(self):
+        """
+        Do not create chapter
+        """
+        pass
 
     def json(self):
         return {
             "id": self.id,
             "chapter": self.chapter,
             "chapter_name": self.chapter_name,
+            "hide": self.hide,
             "sub_chapters": [
                 sub_chapter.json() for sub_chapter in self.sub_chapters
             ],

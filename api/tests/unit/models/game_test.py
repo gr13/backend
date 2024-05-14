@@ -55,6 +55,7 @@ class GameTest(BaseTest):
             "is_multiplayer": False,
             "number_of_questions": 15,
             "hide": False,
+            "user": None,
         }
         actual: Dict = game.json()
         self.assertDictEqual(actual, expected,

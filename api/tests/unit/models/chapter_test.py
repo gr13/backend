@@ -21,6 +21,7 @@ class ChapterTest(BaseTest):
                 "id": 1,
                 "chapter": 1,
                 "chapter_name": "Roles and Responsibilities",
+                "hide": None,
                 "sub_chapters": [
                     {"id": 1, "chapter_id": 1, "sub_chapter": 0, "sub_chapter_name": "All"},  # noqa:E501
                     {"id": 2, "chapter_id": 1, "sub_chapter": 1, "sub_chapter_name": "The Emergency Medical System"},  # noqa:E501
