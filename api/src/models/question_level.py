@@ -11,14 +11,17 @@ class QuestionLevelModel(db.Model):
         default=0,
         unique=True
     )
+    hide = db.Column(db.Boolean(), default=False)
 
     def __init__(self, question_level):
         self.question_level = question_level
+        self.hide = False
 
     def json(self):
         return {
             "id": self.id,
-            "level": self.question_level
+            "level": self.question_level,
+            "hide": self.hide
         }
 
     @classmethod

@@ -152,6 +152,7 @@ INSERT IGNORE INTO rights ( user_right) VALUES ("admin");
 CREATE TABLE IF NOT EXISTS question_levels(
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     question_level INT UNSIGNED DEFAULT 0,
+    hide SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     log_user_id INT UNSIGNED DEFAULT 0,
     PRIMARY KEY (id),
     UNIQUE (question_level)
@@ -163,6 +164,7 @@ CREATE TABLE IF NOT EXISTS question_levels_log(
     logger_event VARCHAR(50),
     log_id INT UNSIGNED,
     question_level VARCHAR(20) NOT NULL,
+    hide SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     log_user_id INT UNSIGNED DEFAULT 0,
     PRIMARY KEY (id),
     UNIQUE (question_level),
@@ -172,40 +174,42 @@ CREATE TABLE IF NOT EXISTS question_levels_log(
 
 DELIMITER ;;
 CREATE TRIGGER question_levels_log_ai AFTER INSERT ON question_levels FOR EACH ROW
-INSERT INTO question_levels_log(logger_event, log_id, question_level, log_user_id)
+INSERT INTO question_levels_log(logger_event, log_id, question_level, hide, log_user_id)
     VALUES (
            "insert",
            NEW.id,
            NEW.question_level,
-           NEW.log_user_id
+           NEW.log_user_id,
+           NEW.hide
            );;
 DELIMITER ;
 DELIMITER ;;
 CREATE TRIGGER question_levels_log_au AFTER UPDATE ON question_levels FOR EACH ROW
-INSERT INTO question_levels_log(logger_event, log_id, question_level, log_user_id)
+INSERT INTO question_levels_log(logger_event, log_id, question_level, hide, log_user_id)
     VALUES (
            "update",
            NEW.id,
            NEW.question_level,
-           NEW.log_user_id
+           NEW.log_user_id,
+           NEW.hide
            );;
 DELIMITER ;
 
-INSERT IGNORE INTO question_levels ( question_level) VALUES (1);
-INSERT IGNORE INTO question_levels ( question_level) VALUES (2);
-INSERT IGNORE INTO question_levels ( question_level) VALUES (3);
-INSERT IGNORE INTO question_levels ( question_level) VALUES (4);
-INSERT IGNORE INTO question_levels ( question_level) VALUES (5);
-INSERT IGNORE INTO question_levels ( question_level) VALUES (6);
-INSERT IGNORE INTO question_levels ( question_level) VALUES (7);
-INSERT IGNORE INTO question_levels ( question_level) VALUES (8);
-INSERT IGNORE INTO question_levels ( question_level) VALUES (9);
-INSERT IGNORE INTO question_levels ( question_level) VALUES (10);
-INSERT IGNORE INTO question_levels ( question_level) VALUES (11);
-INSERT IGNORE INTO question_levels ( question_level) VALUES (12);
-INSERT IGNORE INTO question_levels ( question_level) VALUES (13);
-INSERT IGNORE INTO question_levels ( question_level) VALUES (14);
-INSERT IGNORE INTO question_levels ( question_level) VALUES (15);
+INSERT IGNORE INTO question_levels ( question_level, hide) VALUES (1, 0);
+INSERT IGNORE INTO question_levels ( question_level, hide) VALUES (2, 0);
+INSERT IGNORE INTO question_levels ( question_level, hide) VALUES (3, 0);
+INSERT IGNORE INTO question_levels ( question_level, hide) VALUES (4, 0);
+INSERT IGNORE INTO question_levels ( question_level, hide) VALUES (5, 0);
+INSERT IGNORE INTO question_levels ( question_level, hide) VALUES (6, 0);
+INSERT IGNORE INTO question_levels ( question_level, hide) VALUES (7, 0);
+INSERT IGNORE INTO question_levels ( question_level, hide) VALUES (8, 0);
+INSERT IGNORE INTO question_levels ( question_level, hide) VALUES (9, 0);
+INSERT IGNORE INTO question_levels ( question_level, hide) VALUES (10, 0);
+INSERT IGNORE INTO question_levels ( question_level, hide) VALUES (11, 0);
+INSERT IGNORE INTO question_levels ( question_level, hide) VALUES (12, 0);
+INSERT IGNORE INTO question_levels ( question_level, hide) VALUES (13, 0);
+INSERT IGNORE INTO question_levels ( question_level, hide) VALUES (14, 0);
+INSERT IGNORE INTO question_levels ( question_level, hide) VALUES (15, 0);
 
 -- ###################################################################
 -- table question_difficulties
@@ -263,11 +267,11 @@ INSERT INTO question_difficulties_log(logger_event, log_id, difficulty, difficul
            );;
 DELIMITER ;
 
-INSERT IGNORE INTO question_difficulties (difficulty, difficulty_name) VALUES (0, "warm up");
-INSERT IGNORE INTO question_difficulties (difficulty, difficulty_name) VALUES (1, "2-5 Easy");
-INSERT IGNORE INTO question_difficulties (difficulty, difficulty_name) VALUES (2, "6-10 Average");
-INSERT IGNORE INTO question_difficulties (difficulty, difficulty_name) VALUES (3, "11-14 Difficult");
-INSERT IGNORE INTO question_difficulties (difficulty, difficulty_name) VALUES (4, "15");
+INSERT IGNORE INTO question_difficulties (difficulty, difficulty_name, hide) VALUES (0, "warm up", 0);
+INSERT IGNORE INTO question_difficulties (difficulty, difficulty_name, hide) VALUES (1, "2-5 Easy", 0);
+INSERT IGNORE INTO question_difficulties (difficulty, difficulty_name, hide) VALUES (2, "6-10 Average", 0);
+INSERT IGNORE INTO question_difficulties (difficulty, difficulty_name, hide) VALUES (3, "11-14 Difficult", 0);
+INSERT IGNORE INTO question_difficulties (difficulty, difficulty_name, hide) VALUES (4, "15", 0);
 
 
 -- ###################################################################

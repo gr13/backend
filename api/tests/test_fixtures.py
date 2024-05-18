@@ -61,21 +61,21 @@ class TestGlobalFixtures():
         adds question levels to the database
         """
         sql_scripts = [
-            "INSERT IGNORE INTO question_levels (question_level) VALUES (1);",
-            "INSERT IGNORE INTO question_levels (question_level) VALUES (2);",
-            "INSERT IGNORE INTO question_levels (question_level) VALUES (3);",
-            "INSERT IGNORE INTO question_levels (question_level) VALUES (4);",
-            "INSERT IGNORE INTO question_levels (question_level) VALUES (5);",
-            "INSERT IGNORE INTO question_levels (question_level) VALUES (6);",
-            "INSERT IGNORE INTO question_levels (question_level) VALUES (7);",
-            "INSERT IGNORE INTO question_levels (question_level) VALUES (8);",
-            "INSERT IGNORE INTO question_levels (question_level) VALUES (9);",
-            "INSERT IGNORE INTO question_levels (question_level) VALUES (10);",
-            "INSERT IGNORE INTO question_levels (question_level) VALUES (11);",
-            "INSERT IGNORE INTO question_levels (question_level) VALUES (12);",
-            "INSERT IGNORE INTO question_levels (question_level) VALUES (13);",
-            "INSERT IGNORE INTO question_levels (question_level) VALUES (14);",
-            "INSERT IGNORE INTO question_levels (question_level) VALUES (15);",
+            "INSERT IGNORE INTO question_levels (question_level, hide) VALUES (1, 0);",  # noqa:E501
+            "INSERT IGNORE INTO question_levels (question_level, hide) VALUES (2, 0);",  # noqa:E501
+            "INSERT IGNORE INTO question_levels (question_level, hide) VALUES (3, 0);",  # noqa:E501
+            "INSERT IGNORE INTO question_levels (question_level, hide) VALUES (4, 0);",  # noqa:E501
+            "INSERT IGNORE INTO question_levels (question_level, hide) VALUES (5, 0);",  # noqa:E501
+            "INSERT IGNORE INTO question_levels (question_level, hide) VALUES (6, 0);",  # noqa:E501
+            "INSERT IGNORE INTO question_levels (question_level, hide) VALUES (7, 0);",  # noqa:E501
+            "INSERT IGNORE INTO question_levels (question_level, hide) VALUES (8, 0);",  # noqa:E501
+            "INSERT IGNORE INTO question_levels (question_level, hide) VALUES (9, 0);",  # noqa:E501
+            "INSERT IGNORE INTO question_levels (question_level, hide) VALUES (10, 0);",  # noqa:E501
+            "INSERT IGNORE INTO question_levels (question_level, hide) VALUES (11, 0);",  # noqa:E501
+            "INSERT IGNORE INTO question_levels (question_level, hide) VALUES (12, 0);",  # noqa:E501
+            "INSERT IGNORE INTO question_levels (question_level, hide) VALUES (13, 0);",  # noqa:E501
+            "INSERT IGNORE INTO question_levels (question_level, hide) VALUES (14, 0);",  # noqa:E501
+            "INSERT IGNORE INTO question_levels (question_level, hide) VALUES (15, 0);",  # noqa:E501
         ]
         for script in sql_scripts:
             TestGlobalFixtures.add_row_to_table(script)

@@ -17,7 +17,7 @@ class QuestionLevelTest(BaseTest):
         """
         with self.app_context():
             right = QuestionLevelModel.find_by_id(1)
-            expected = {"id": 1, "level": 1}
+            expected = {"id": 1, "level": 1, "hide": False}
             actual: Dict = right.json()
             self.assertDictEqual(actual, expected,
                 f"User JSON is incorrect expected: {expected}, actual: "
