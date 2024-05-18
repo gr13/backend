@@ -490,6 +490,7 @@ CREATE TABLE IF NOT EXISTS questions(
     correct_answer_text VARCHAR(255) NOT NULL,
     answer_img VARCHAR(20) NOT NULL DEFAULT 'default.jpg',
     is_validated SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    is_error SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     hide SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     log_user_id INT UNSIGNED DEFAULT 0,
     PRIMARY KEY (id)
@@ -515,6 +516,7 @@ CREATE TABLE IF NOT EXISTS questions_log(
     answer_time INT NOT NULL DEFAULT 60,
     answer_img VARCHAR(20) NOT NULL DEFAULT 'default.jpg',
     hide SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    is_error SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     is_validated SMALLINT UNSIGNED NOT NULL DEFAULT 0,
 
     log_user_id INT UNSIGNED DEFAULT 0,
@@ -526,7 +528,7 @@ CREATE TABLE IF NOT EXISTS questions_log(
 DELIMITER ;;
 CREATE TRIGGER questions_log_ai AFTER INSERT ON questions FOR EACH ROW
 INSERT INTO questions_log(logger_event, log_id, level_id, difficulty_id, chapter_id, sub_chapter_id, question, image_file, answer_A, answer_B, answer_C,
-            answer_D, correct_answer, correct_answer_text, answer_time, answer_img, is_validated, hide, log_user_id)
+            answer_D, correct_answer, correct_answer_text, answer_time, answer_img, is_error, is_validated, hide, log_user_id)
     VALUES (
            "insert",
            NEW.id,
@@ -544,6 +546,7 @@ INSERT INTO questions_log(logger_event, log_id, level_id, difficulty_id, chapter
            NEW.correct_answer_text,
            NEW.answer_time,
            NEW.answer_img,
+           NEW.is_error,
            NEW.is_validated,
            NEW.hide,
            NEW.log_user_id
@@ -552,7 +555,7 @@ DELIMITER ;
 DELIMITER ;;
 CREATE TRIGGER questions_log_au AFTER UPDATE ON questions FOR EACH ROW
 INSERT INTO questions_log(logger_event, log_id, level_id, difficulty_id, chapter_id, sub_chapter_id, question, image_file, answer_A, answer_B, answer_C,
-            answer_D, correct_answer, correct_answer_text, answer_time, answer_img, is_validated, hide, log_user_id)
+            answer_D, correct_answer, correct_answer_text, answer_time, answer_img, is_error, is_validated, hide, log_user_id)
     VALUES (
            "update",
            NEW.id,
@@ -570,6 +573,7 @@ INSERT INTO questions_log(logger_event, log_id, level_id, difficulty_id, chapter
            NEW.correct_answer_text,
            NEW.answer_time,
            NEW.answer_img,
+           NEW.is_error,
            NEW.is_validated,
            NEW.hide,
            NEW.log_user_id

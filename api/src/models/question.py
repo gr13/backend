@@ -39,6 +39,7 @@ class QuestionModel(db.Model):
     correct_answer = db.Column(db.String(1), nullable=False)
     correct_answer_text = db.Column(db.String(255), nullable=False)
     answer_img = db.Column(db.String(20), nullable=False)
+    is_error = db.Column(db.Boolean(), default=0)
     is_validated = db.Column(db.Boolean(), default=0)
     hide = db.Column(db.Boolean(), default=False)
 
@@ -66,6 +67,7 @@ class QuestionModel(db.Model):
         self.correct_answer_text = kwargs["correct_answer_text"]
         self.answer_img = kwargs["answer_img"]
         self.is_validated = kwargs["is_validated"]
+        self.is_error = False
         self.hide = False
 
     def json(self):
@@ -90,6 +92,7 @@ class QuestionModel(db.Model):
             "difficulty": self.difficulty,
             "chapter": self.chapter,
             "sub_chapter": self.sub_chapter,
+            "is_error": self.is_error,
             "hide": self.hide,
         }
 

@@ -72,6 +72,7 @@ class QuestionTest(BaseTest):
             "difficulty": None,
             "chapter": None,
             "sub_chapter": None,
+            "is_error": False,
             "hide": False,
         }
         actual: Dict = question.json()
