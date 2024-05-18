@@ -30,7 +30,7 @@ class QuestionTest(BaseTest):
             correct_answer="A",
             correct_answer_text="correct Answer",
             answer_img="",
-            is_validated=False
+            is_validated=False,
         )
 
     def test_create_question(self):
@@ -71,7 +71,8 @@ class QuestionTest(BaseTest):
             "level": None,
             "difficulty": None,
             "chapter": None,
-            "sub_chapter": None
+            "sub_chapter": None,
+            "hide": False,
         }
         actual: Dict = question.json()
         self.assertDictEqual(actual, expected,
