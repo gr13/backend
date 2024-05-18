@@ -330,19 +330,19 @@ INSERT INTO chapters_log(logger_event, log_id, chapter, chapter_name, hide, log_
            );;
 DELIMITER ;
 
-INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (1, "Roles and Responsibilities");
-INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (2, "Well-Being of the Emergency Responder");
-INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (3, "Patient Assesment");
-INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (4, "Respiratory Emergencies");
-INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (5, "Supplementary Oxygen");
-INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (6, "Cardiovascular Emergencies");
-INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (7, "Trauma");
-INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (8, "Medical Conditions");
-INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (9, "Musculoskeletal Injuries");
-INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (10, "Environmental Emergencies");
-INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (11, "Special Populations");
-INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (12, "Special Situations");
-INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (13, "Appendix");
+INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (1, "Roles and Responsibilities", 0);
+INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (2, "Well-Being of the Emergency Responder", 0);
+INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (3, "Patient Assesment", 0);
+INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (4, "Respiratory Emergencies", 0);
+INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (5, "Supplementary Oxygen", 0);
+INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (6, "Cardiovascular Emergencies", 0);
+INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (7, "Trauma", 0);
+INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (8, "Medical Conditions", 0);
+INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (9, "Musculoskeletal Injuries", 0);
+INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (10, "Environmental Emergencies", 0);
+INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (11, "Special Populations", 0);
+INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (12, "Special Situations", 0);
+INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (13, "Appendix", 0);
 
 -- ###################################################################
 -- table sub-chapters

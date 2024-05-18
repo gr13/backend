@@ -21,13 +21,13 @@ class ChapterTest(BaseTest):
                 "id": 1,
                 "chapter": 1,
                 "chapter_name": "Roles and Responsibilities",
-                "hide": None,
+                "hide": False,
                 "sub_chapters": [
-                    {"id": 1, "chapter_id": 1, "sub_chapter": 0, "sub_chapter_name": "All"},  # noqa:E501
-                    {"id": 2, "chapter_id": 1, "sub_chapter": 1, "sub_chapter_name": "The Emergency Medical System"},  # noqa:E501
-                    {"id": 3, "chapter_id": 1, "sub_chapter": 2, "sub_chapter_name": "Legal and Ethical Issues"},  # noqa:E501
-                    {"id": 4, "chapter_id": 1, "sub_chapter": 3, "sub_chapter_name": "Communication"},  # noqa:E501
-                    {"id": 5, "chapter_id": 1, "sub_chapter": 4, "sub_chapter_name": "Documentation and Record Keeping"}  # noqa:E501
+                    {"id": 1, "chapter_id": 1, "sub_chapter": 0, "sub_chapter_name": "All", "hide": False},  # noqa:E501
+                    {"id": 2, "chapter_id": 1, "sub_chapter": 1, "sub_chapter_name": "The Emergency Medical System", "hide": False},  # noqa:E501
+                    {"id": 3, "chapter_id": 1, "sub_chapter": 2, "sub_chapter_name": "Legal and Ethical Issues", "hide": False},  # noqa:E501
+                    {"id": 4, "chapter_id": 1, "sub_chapter": 3, "sub_chapter_name": "Communication", "hide": False},  # noqa:E501
+                    {"id": 5, "chapter_id": 1, "sub_chapter": 4, "sub_chapter_name": "Documentation and Record Keeping", "hide": False}  # noqa:E501
                 ]
             }
             actual: Dict = chapter.json()

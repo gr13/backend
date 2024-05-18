@@ -101,19 +101,19 @@ class TestGlobalFixtures():
         adds chapters to the database
         """
         sql_scripts = [
-            "INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (1, 'Roles and Responsibilities');",  # noqa:E501
-            "INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (2, 'Well-Being of the Emergency Responder');",  # noqa:E501
-            "INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (3, 'Patient Assesment');",  # noqa:E501
-            "INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (4, 'Respiratory Emergencies');",  # noqa:E501
-            "INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (5, 'Supplementary Oxygen');",  # noqa:E501
-            "INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (6, 'Cardiovascular Emergencies');",  # noqa:E501
-            "INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (7, 'Trauma');",  # noqa:E501
-            "INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (8, 'Medical Conditions');",  # noqa:E501
-            "INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (9, 'Musculoskeletal Injuries');",  # noqa:E501
-            "INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (10, 'Environmental Emergencies');",  # noqa:E501
-            "INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (11, 'Special Populations');",  # noqa:E501
-            "INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (12, 'Special Situations');",  # noqa:E501
-            "INSERT IGNORE INTO chapters (chapter, chapter_name) VALUES (13, 'Appendix');",  # noqa:E501
+            "INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (1, 'Roles and Responsibilities', 0);",  # noqa:E501
+            "INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (2, 'Well-Being of the Emergency Responder', 0);",  # noqa:E501
+            "INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (3, 'Patient Assesment', 0);",  # noqa:E501
+            "INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (4, 'Respiratory Emergencies', 0);",  # noqa:E501
+            "INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (5, 'Supplementary Oxygen', 0);",  # noqa:E501
+            "INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (6, 'Cardiovascular Emergencies', 0);",  # noqa:E501
+            "INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (7, 'Trauma', 0);",  # noqa:E501
+            "INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (8, 'Medical Conditions', 0);",  # noqa:E501
+            "INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (9, 'Musculoskeletal Injuries', 0);",  # noqa:E501
+            "INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (10, 'Environmental Emergencies', 0);",  # noqa:E501
+            "INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (11, 'Special Populations', 0);",  # noqa:E501
+            "INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (12, 'Special Situations', 0);",  # noqa:E501
+            "INSERT IGNORE INTO chapters (chapter, chapter_name, hide) VALUES (13, 'Appendix', 0);",  # noqa:E501
         ]
         for script in sql_scripts:
             TestGlobalFixtures.add_row_to_table(script)
