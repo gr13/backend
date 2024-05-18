@@ -124,71 +124,71 @@ class TestGlobalFixtures():
         adds sub_chapters to the database
         """
         sql_scripts = [
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (1, 0, 'All');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (1, 1, 'The Emergency Medical System');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (1, 2, 'Legal and Ethical Issues');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (1, 3, 'Communication');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (1, 4, 'Documentation and Record Keeping');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (2, 0, 'All');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (2, 1, 'Health andd Well-Being');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (2, 2, 'Critical Incident Stress');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (2, 3, 'Infection Control');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (3, 0, 'All');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (3, 1, 'Emergency Scene Management and Primary Assessment');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (3, 2, 'Secondary Assessment');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (3, 3, 'Lifting and Carrying');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (3, 4, 'Multiple Patient Incidents');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (4, 0, 'All');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (4, 1, 'Respiratory Disease');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (4, 2, 'Airway Obstructions');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (4, 3, 'Establishing and Maintaining the Airway');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (5, 0, 'All');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (5, 1, 'Oxygen Administration');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (5, 2, 'Artificital Ventilation');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (6, 0, 'All');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (6, 1, 'Cardiovascular Disease');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (6, 2, 'Cerebrovascular Emergencies (Stroke/TIA)');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (6, 3, 'Cardiopulmonary Resuscitation');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (6, 4, 'Automated External Defibrillation');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (7, 0, 'All');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (7, 1, 'Shock');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (7, 2, 'Wound Management');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (7, 3, 'Eye Injuries');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (7, 4, 'Burns');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (7, 5, 'Chest Injuries');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (7, 6, 'Gastrointestinal and Genitourinary');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (7, 7, 'Dental Emergencies');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (8, 0, 'All');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (8, 1, 'Diabetes');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (8, 2, 'Seizures');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (8, 3, 'Unconsciousness and Fainting');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (8, 4, 'General Pharmacology');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (9, 0, 'All');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (9, 1, 'Head, Spinal and Pelvic Injuries');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (9, 2, 'Bone, Joint and Muscle Injuries');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (10, 0, 'All');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (10, 1, 'Heat and Cold-Related Emergencies');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (10, 2, 'Poisons, Bites and Stings');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (10, 3, 'Aquatic Emergencies');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (11, 0, 'All');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (11, 1, 'Emergency Childbirth, Miscarriage and Neonates');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (11, 2, 'Pediatric Patients');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (11, 3, 'Geriatric Patients');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (11, 4, 'Bariatric Patients');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (11, 5, 'Special Needs and Palliative Care');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (11, 6, 'Behavioral Emergencies');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (11, 7, 'Substance Abuse');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (12, 0, 'All');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (12, 1, 'Special Rescue Situations');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (12, 2, 'Chemical, Biological, Radiological, Nuclear and Explosive Events (CBRNE)');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (12, 3, 'Extended Patient Care');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (12, 4, 'Maintaining Peripheral IVS');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (12, 5, 'Death in Remote Areas');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (12, 6, 'First Aid Stations and Rooms');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (12, 7, 'Ambulance Operations and Maintenance');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (13, 0, 'All');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (13, 1, 'Anatomy and Physiology');",  # noqa:E501
-            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name) VALUES (13, 2, 'Medical Terminology');",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (1, 0, 'All', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (1, 1, 'The Emergency Medical System', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (1, 2, 'Legal and Ethical Issues', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (1, 3, 'Communication', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (1, 4, 'Documentation and Record Keeping', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (2, 0, 'All', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (2, 1, 'Health andd Well-Being', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (2, 2, 'Critical Incident Stress', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (2, 3, 'Infection Control', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (3, 0, 'All', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (3, 1, 'Emergency Scene Management and Primary Assessment', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (3, 2, 'Secondary Assessment', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (3, 3, 'Lifting and Carrying', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (3, 4, 'Multiple Patient Incidents', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (4, 0, 'All', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (4, 1, 'Respiratory Disease', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (4, 2, 'Airway Obstructions', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (4, 3, 'Establishing and Maintaining the Airway', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (5, 0, 'All', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (5, 1, 'Oxygen Administration', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (5, 2, 'Artificital Ventilation', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (6, 0, 'All', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (6, 1, 'Cardiovascular Disease', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (6, 2, 'Cerebrovascular Emergencies (Stroke/TIA)', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (6, 3, 'Cardiopulmonary Resuscitation', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (6, 4, 'Automated External Defibrillation', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (7, 0, 'All', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (7, 1, 'Shock', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (7, 2, 'Wound Management', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (7, 3, 'Eye Injuries', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (7, 4, 'Burns', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (7, 5, 'Chest Injuries', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (7, 6, 'Gastrointestinal and Genitourinary', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (7, 7, 'Dental Emergencies', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (8, 0, 'All', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (8, 1, 'Diabetes', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (8, 2, 'Seizures', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (8, 3, 'Unconsciousness and Fainting', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (8, 4, 'General Pharmacology', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (9, 0, 'All', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (9, 1, 'Head, Spinal and Pelvic Injuries', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (9, 2, 'Bone, Joint and Muscle Injuries', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (10, 0, 'All', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (10, 1, 'Heat and Cold-Related Emergencies', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (10, 2, 'Poisons, Bites and Stings', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (10, 3, 'Aquatic Emergencies', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (11, 0, 'All', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (11, 1, 'Emergency Childbirth, Miscarriage and Neonates', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (11, 2, 'Pediatric Patients', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (11, 3, 'Geriatric Patients', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (11, 4, 'Bariatric Patients', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (11, 5, 'Special Needs and Palliative Care', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (11, 6, 'Behavioral Emergencies', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (11, 7, 'Substance Abuse', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (12, 0, 'All', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (12, 1, 'Special Rescue Situations', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (12, 2, 'Chemical, Biological, Radiological, Nuclear and Explosive Events (CBRNE)', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (12, 3, 'Extended Patient Care', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (12, 4, 'Maintaining Peripheral IVS', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (12, 5, 'Death in Remote Areas', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (12, 6, 'First Aid Stations and Rooms', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (12, 7, 'Ambulance Operations and Maintenance', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (13, 0, 'All', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (13, 1, 'Anatomy and Physiology', 0);",  # noqa:E501
+            "INSERT IGNORE INTO sub_chapters (chapter_id, sub_chapter, sub_chapter_name, hide) VALUES (13, 2, 'Medical Terminology', 0);",  # noqa:E501
 
         ]
         for script in sql_scripts:

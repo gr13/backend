@@ -21,7 +21,8 @@ class SubChapterTest(BaseTest):
                 "id": 1,
                 "chapter_id": 1,
                 "sub_chapter": 0,
-                "sub_chapter_name": "All"
+                "sub_chapter_name": "All",
+                "hide": False,
             }
             actual: Dict = SubChapter.json()
             self.assertDictEqual(actual, expected,

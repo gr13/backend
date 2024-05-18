@@ -13,6 +13,7 @@ class SubChapterModel(db.Model):
     )
     sub_chapter = db.Column(db.Integer, nullable=False, unique=False)
     sub_chapter_name = db.Column(db.String(255), unique=True)
+    hide = db.Column(db.Boolean(), default=False)
 
     # lazy="dynamic" does not create the list of items
     # unless it is necessary
@@ -24,6 +25,7 @@ class SubChapterModel(db.Model):
 
     def __init__(self, user_right):
         self.user_right = user_right
+        self.hide = False
 
     def json(self):
         return {
@@ -31,6 +33,7 @@ class SubChapterModel(db.Model):
             "chapter_id": self.chapter_id,
             "sub_chapter": self.sub_chapter,
             "sub_chapter_name": self.sub_chapter_name,
+            "hide": self.hide,
         }
 
     @classmethod
