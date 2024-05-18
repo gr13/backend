@@ -7,16 +7,19 @@ class QuestionDifficultyModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     difficulty = db.Column(db.Integer, nullable=False, unique=True)
     difficulty_name = db.Column(db.String(10), nullable=False, unique=True)
+    hide = db.Column(db.Boolean(), default=False)
 
     def __init__(self, difficulty: int, difficulty_name: str):
         self.difficulty = difficulty
         self.difficulty_name = difficulty_name
+        self.hide = False
 
     def json(self):
         return {
             "id": self.id,
             "difficulty": self.difficulty,
-            "difficulty_name": self.difficulty_name
+            "difficulty_name": self.difficulty_name,
+            "hide": self.hide,
         }
 
     @classmethod

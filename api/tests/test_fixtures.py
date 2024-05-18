@@ -86,11 +86,11 @@ class TestGlobalFixtures():
         adds question levels to the database
         """
         sql_scripts = [
-            "INSERT IGNORE INTO question_difficulties (difficulty, difficulty_name) VALUES (0, 'warm up');",  # noqa:E501
-            "INSERT IGNORE INTO question_difficulties (difficulty, difficulty_name) VALUES (1, '2-5 Easy');",  # noqa:E501
-            "INSERT IGNORE INTO question_difficulties (difficulty, difficulty_name) VALUES (2, '6-10 Average');",  # noqa:E501
-            "INSERT IGNORE INTO question_difficulties (difficulty, difficulty_name) VALUES (3, '11-14 Difficult');",  # noqa:E501
-            "INSERT IGNORE INTO question_difficulties (difficulty, difficulty_name) VALUES (4, '15');",  # noqa:E501
+            "INSERT IGNORE INTO question_difficulties (difficulty, difficulty_name, hide) VALUES (0, 'warm up', 0);",  # noqa:E501
+            "INSERT IGNORE INTO question_difficulties (difficulty, difficulty_name, hide) VALUES (1, '2-5 Easy', 0);",  # noqa:E501
+            "INSERT IGNORE INTO question_difficulties (difficulty, difficulty_name, hide) VALUES (2, '6-10 Average', 0);",  # noqa:E501
+            "INSERT IGNORE INTO question_difficulties (difficulty, difficulty_name, hide) VALUES (3, '11-14 Difficult', 0);",  # noqa:E501
+            "INSERT IGNORE INTO question_difficulties (difficulty, difficulty_name, hide) VALUES (4, '15', 0);",  # noqa:E501
         ]
         for script in sql_scripts:
             TestGlobalFixtures.add_row_to_table(script)
