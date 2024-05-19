@@ -56,3 +56,7 @@ class GameQuestionModel(db.Model):
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
+
+    def delete_from_db(self):
+        self.hide = True
+        self.save_to_db()

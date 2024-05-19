@@ -12,6 +12,7 @@ from src.models.question import QuestionModel  # noqa:E402
 
 
 class GamePlayTest(BaseTest):
+    @staticmethod
     def _create_question() -> int:
         """
         Creates a standard user to be used in tests
