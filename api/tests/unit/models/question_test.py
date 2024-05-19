@@ -22,12 +22,12 @@ class QuestionTest(BaseTest):
             sub_chapter_id=1,
             question="question",
             image_file="",
-            answer_a="answ a",
-            answer_b="answ b",
-            answer_c="answ c",
-            answer_d="answ d",
+            answer_1="answ a",
+            answer_2="answ b",
+            answer_3="answ c",
+            answer_4="answ d",
             answer_time=60,
-            correct_answer="A",
+            correct_answer=1,
             correct_answer_text="correct Answer",
             answer_img="",
             is_validated=False,
@@ -41,8 +41,8 @@ class QuestionTest(BaseTest):
         self.assertEqual(question.question, "question",
             "The question of the question after creation does not equal"
             " the constructor argument.")
-        self.assertEqual(question.answer_a, "answ a",
-            "The answer_a of the question after creation does not "
+        self.assertEqual(question.answer_1, "answ a",
+            "The answer_1 of the question after creation does not "
             "equal the constructor argument.")
 
     def test_questions_json(self):
@@ -58,12 +58,12 @@ class QuestionTest(BaseTest):
             "sub_chapter_id": 1,
             "question": "question",
             "image_file": "",
-            "answer_a": "answ a",
-            "answer_b": "answ b",
-            "answer_c": "answ c",
-            "answer_d": "answ d",
+            "answer_1": "answ a",
+            "answer_2": "answ b",
+            "answer_3": "answ c",
+            "answer_4": "answ d",
             "answer_time": 60,
-            "correct_answer": "A",
+            "correct_answer": 1,
             "correct_answer_text":
             "correct Answer",
             "answer_img": "",

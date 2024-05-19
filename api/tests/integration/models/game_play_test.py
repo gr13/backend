@@ -23,11 +23,11 @@ class GamePlayTest(BaseTest):
             sub_chapter_id=1,
             question="test question",
             image_file="",
-            answer_a="answer_a",
-            answer_b="answer_b",
-            answer_c="answer_c",
-            answer_d="answer_d",
-            correct_answer="A",
+            answer_1="answer_1",
+            answer_2="answer_2",
+            answer_3="answer_3",
+            answer_4="answer_4",
+            correct_answer=1,
             correct_answer_text="correct_answer_text",
             answer_img="answer_img"
         )
@@ -59,7 +59,7 @@ class GamePlayTest(BaseTest):
             player_name="player",
             game_id=game_id,
             question_id=question_id,
-            answer="A",
+            answer=1,
             is_answer_correct=True,
         )
         game_play.save_to_db()

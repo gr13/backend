@@ -481,12 +481,12 @@ CREATE TABLE IF NOT EXISTS questions(
     sub_chapter_id INT,
     question VARCHAR(255) NOT NULL,
     image_file VARCHAR(20) NOT NULL DEFAULT 'default.jpg',
-    answer_A VARCHAR(255) NOT NULL,
-    answer_B VARCHAR(255) NOT NULL,
-    answer_C VARCHAR(255) NOT NULL,
-    answer_D VARCHAR(255) NOT NULL,
+    answer_1 VARCHAR(255) NOT NULL,
+    answer_2 VARCHAR(255) NOT NULL,
+    answer_3 VARCHAR(255) NOT NULL,
+    answer_4 VARCHAR(255) NOT NULL,
     answer_time INT NOT NULL DEFAULT 60,
-    correct_answer VARCHAR(1) NOT NULL,
+    correct_answer SMALLINT UNSIGNED NOT NULL,
     correct_answer_text VARCHAR(255) NOT NULL,
     answer_img VARCHAR(20) NOT NULL DEFAULT 'default.jpg',
     is_validated SMALLINT UNSIGNED NOT NULL DEFAULT 0,
@@ -507,11 +507,11 @@ CREATE TABLE IF NOT EXISTS questions_log(
     sub_chapter_id INT,
     question VARCHAR(255) NOT NULL,
     image_file VARCHAR(20) NOT NULL DEFAULT 'default.jpg',
-    answer_A VARCHAR(255) NOT NULL,
-    answer_B VARCHAR(255) NOT NULL,
-    answer_C VARCHAR(255) NOT NULL,
-    answer_D VARCHAR(255) NOT NULL,
-    correct_answer VARCHAR(1) NOT NULL,
+    answer_1 VARCHAR(255) NOT NULL,
+    answer_2 VARCHAR(255) NOT NULL,
+    answer_3 VARCHAR(255) NOT NULL,
+    answer_4 VARCHAR(255) NOT NULL,
+    correct_answer SMALLINT UNSIGNED NOT NULL,
     correct_answer_text VARCHAR(255) NOT NULL,
     answer_time INT NOT NULL DEFAULT 60,
     answer_img VARCHAR(20) NOT NULL DEFAULT 'default.jpg',
@@ -527,8 +527,9 @@ CREATE TABLE IF NOT EXISTS questions_log(
 
 DELIMITER ;;
 CREATE TRIGGER questions_log_ai AFTER INSERT ON questions FOR EACH ROW
-INSERT INTO questions_log(logger_event, log_id, level_id, difficulty_id, chapter_id, sub_chapter_id, question, image_file, answer_A, answer_B, answer_C,
-            answer_D, correct_answer, correct_answer_text, answer_time, answer_img, is_error, is_validated, hide, log_user_id)
+INSERT INTO questions_log(logger_event, log_id, level_id, difficulty_id, chapter_id, sub_chapter_id, question, image_file,
+            answer_1, answer_2, answer_3, answer_4, correct_answer, correct_answer_text, answer_time, answer_img, is_error,
+            is_validated, hide, log_user_id)
     VALUES (
            "insert",
            NEW.id,
@@ -538,10 +539,10 @@ INSERT INTO questions_log(logger_event, log_id, level_id, difficulty_id, chapter
            NEW.sub_chapter_id,
            NEW.question,
            NEW.image_file,
-           NEW.answer_A,
-           NEW.answer_B,
-           NEW.answer_C,
-           NEW.answer_D,
+           NEW.answer_1,
+           NEW.answer_2,
+           NEW.answer_3,
+           NEW.answer_4,
            NEW.correct_answer,
            NEW.correct_answer_text,
            NEW.answer_time,
@@ -554,8 +555,9 @@ INSERT INTO questions_log(logger_event, log_id, level_id, difficulty_id, chapter
 DELIMITER ;
 DELIMITER ;;
 CREATE TRIGGER questions_log_au AFTER UPDATE ON questions FOR EACH ROW
-INSERT INTO questions_log(logger_event, log_id, level_id, difficulty_id, chapter_id, sub_chapter_id, question, image_file, answer_A, answer_B, answer_C,
-            answer_D, correct_answer, correct_answer_text, answer_time, answer_img, is_error, is_validated, hide, log_user_id)
+INSERT INTO questions_log(logger_event, log_id, level_id, difficulty_id, chapter_id, sub_chapter_id, question, image_file,
+            answer_1, answer_2, answer_3, answer_4, correct_answer, correct_answer_text, answer_time, answer_img, is_error,
+            is_validated, hide, log_user_id)
     VALUES (
            "update",
            NEW.id,
@@ -565,10 +567,10 @@ INSERT INTO questions_log(logger_event, log_id, level_id, difficulty_id, chapter
            NEW.sub_chapter_id,
            NEW.question,
            NEW.image_file,
-           NEW.answer_A,
-           NEW.answer_B,
-           NEW.answer_C,
-           NEW.answer_D,
+           NEW.answer_1,
+           NEW.answer_2,
+           NEW.answer_3,
+           NEW.answer_4,
            NEW.correct_answer,
            NEW.correct_answer_text,
            NEW.answer_time,
@@ -729,7 +731,7 @@ CREATE TABLE IF NOT EXISTS game_plays(
     player_id INT,
     game_id INT NOT NULL,
     question_id INT NOT NULL,
-    answer VARCHAR(1),
+    answer SMALLINT UNSIGNED,
     is_answer_correct SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     hide SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     log_user_id INT UNSIGNED DEFAULT 0,

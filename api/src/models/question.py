@@ -31,12 +31,12 @@ class QuestionModel(db.Model):
     )
     question = db.Column(db.String(255), nullable=False)
     image_file = db.Column(db.String(20), nullable=False)
-    answer_a = db.Column(db.String(255), nullable=False)
-    answer_b = db.Column(db.String(255), nullable=False)
-    answer_c = db.Column(db.String(255), nullable=False)
-    answer_d = db.Column(db.String(255), nullable=False)
+    answer_1 = db.Column(db.String(255), nullable=False)
+    answer_2 = db.Column(db.String(255), nullable=False)
+    answer_3 = db.Column(db.String(255), nullable=False)
+    answer_4 = db.Column(db.String(255), nullable=False)
     answer_time = db.Column(db.Integer, nullable=False, default=60)
-    correct_answer = db.Column(db.String(1), nullable=False)
+    correct_answer = db.Column(db.Integer, nullable=False)
     correct_answer_text = db.Column(db.String(255), nullable=False)
     answer_img = db.Column(db.String(20), nullable=False)
     is_error = db.Column(db.Boolean(), default=False)
@@ -58,10 +58,10 @@ class QuestionModel(db.Model):
         self.sub_chapter_id = kwargs["sub_chapter_id"]
         self.question = kwargs["question"]
         self.image_file = kwargs["image_file"]
-        self.answer_a = kwargs["answer_a"]
-        self.answer_b = kwargs["answer_b"]
-        self.answer_c = kwargs["answer_c"]
-        self.answer_d = kwargs["answer_d"]
+        self.answer_1 = kwargs["answer_1"]
+        self.answer_2 = kwargs["answer_2"]
+        self.answer_3 = kwargs["answer_3"]
+        self.answer_4 = kwargs["answer_4"]
         self.answer_time = kwargs["answer_time"] if kwargs.get("answer_time") else 30  # noqa: E501
         self.correct_answer = kwargs["correct_answer"]
         self.correct_answer_text = kwargs["correct_answer_text"]
@@ -79,10 +79,10 @@ class QuestionModel(db.Model):
             "sub_chapter_id": self.sub_chapter_id,
             "question": self.question,
             "image_file": self.image_file,
-            "answer_a": self.answer_a,
-            "answer_b": self.answer_b,
-            "answer_c": self.answer_c,
-            "answer_d": self.answer_d,
+            "answer_1": self.answer_1,
+            "answer_2": self.answer_2,
+            "answer_3": self.answer_3,
+            "answer_4": self.answer_4,
             "answer_time": self.answer_time,
             "correct_answer": self.correct_answer,
             "correct_answer_text": self.correct_answer_text,
