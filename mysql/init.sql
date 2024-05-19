@@ -645,7 +645,7 @@ DELIMITER ;
 CREATE TABLE IF NOT EXISTS games(
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     user_id INT,
-    game_uid VARCHAR(5) NOT NULL,
+    game_uid VARCHAR(6) NOT NULL,
     game_description VARCHAR(255) NOT NULL,
     recommend SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     approved SMALLINT UNSIGNED NOT NULL DEFAULT 0,
@@ -664,7 +664,7 @@ CREATE TABLE IF NOT EXISTS games_log(
     logger_event VARCHAR(50),
     log_id INT UNSIGNED,
     user_id INT,
-    game_uid VARCHAR(5) NOT NULL,
+    game_uid VARCHAR(6) NOT NULL,
     game_description VARCHAR(255) NOT NULL,
     recommend SMALLINT UNSIGNED NOT NULL DEFAULT 0,
     approved SMALLINT UNSIGNED NOT NULL DEFAULT 0,

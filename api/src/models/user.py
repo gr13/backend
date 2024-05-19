@@ -68,11 +68,11 @@ class UserModel(db.Model):
         }
 
     @classmethod
-    def find_by_email(cls, email):
+    def find_by_email(cls, email: str):
         return cls.query.filter_by(email=email).first()
 
     @classmethod
-    def find_by_id(cls, _id):
+    def find_by_id(cls, _id: int):
         return cls.query.filter_by(id=_id).first()
 
     @classmethod
@@ -84,8 +84,10 @@ class UserModel(db.Model):
         db.session.commit()
 
     def delete_from_db(self):
-        db.session.delete(self)
-        db.session.commit()
+        # db.session.delete(self)
+        # db.session.commit()
+        self.hide = True
+        self.save_to_db()
 
     def set_password(self, _password):
         return generate_password_hash(_password)
@@ -95,4 +97,4 @@ class UserModel(db.Model):
 
     @classmethod
     def create_random_password(cls):
-        return secrets.tocken_hex(8)
+        return secrets.token_hex(8)

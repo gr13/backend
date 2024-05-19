@@ -1,3 +1,4 @@
+import secrets
 from src.db import db
 
 
@@ -12,7 +13,7 @@ class GameModel(db.Model):
         nullable=True,
         default=1
     )
-    game_uid = db.Column(db.Integer, nullable=False)
+    game_uid = db.Column(db.String(6), nullable=False)
     game_description = db.Column(db.String(255), nullable=False)
     recommend = db.Column(db.Boolean(), default=0)
     approved = db.Column(db.Boolean(), default=0)
@@ -26,7 +27,6 @@ class GameModel(db.Model):
 
     def __init__(self, **kwargs):
         self.user_id = kwargs["user_id"]
-        self.game_uid = kwargs["game_uid"]
         self.game_description = kwargs["game_description"]
         self.recommend = kwargs["recommend"] if kwargs.get("recommend") else False  # noqa: E501
         self.approved = kwargs["approved"] if kwargs.get("approved") else False
@@ -34,7 +34,22 @@ class GameModel(db.Model):
         self.is_random = kwargs["is_random"] if kwargs.get("is_random") else False  # noqa: E501
         self.is_multiplayer = kwargs["is_multiplayer"] if kwargs.get("is_multiplayer") else False  # noqa: E501
         self.number_of_questions = kwargs["number_of_questions"] if kwargs.get("number_of_questions") else 15  # noqa: E501
+        self.game_uid = self._create_game_uid()
         self.hide = False
+
+    @staticmethod
+    def _create_game_uid():
+        """
+        Creates a unique identifier for a game
+        """
+        return secrets.token_hex(8)[0:6]
+
+    @property
+    def get_game_uid(self) -> str:
+        """
+        returns game UID
+        """
+        return self.game_uid
 
     def json(self):
         return {
@@ -67,3 +82,9 @@ class GameModel(db.Model):
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
+
+    def delete_from_db(self):
+        # db.session.delete(self)
+        # db.session.commit()
+        self.hide = True
+        self.save_to_db()
