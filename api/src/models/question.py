@@ -39,8 +39,8 @@ class QuestionModel(db.Model):
     correct_answer = db.Column(db.String(1), nullable=False)
     correct_answer_text = db.Column(db.String(255), nullable=False)
     answer_img = db.Column(db.String(20), nullable=False)
-    is_error = db.Column(db.Boolean(), default=0)
-    is_validated = db.Column(db.Boolean(), default=0)
+    is_error = db.Column(db.Boolean(), default=False)
+    is_validated = db.Column(db.Boolean(), default=False)
     hide = db.Column(db.Boolean(), default=False)
 
     level = db.relationship("QuestionLevelModel")
@@ -62,11 +62,11 @@ class QuestionModel(db.Model):
         self.answer_b = kwargs["answer_b"]
         self.answer_c = kwargs["answer_c"]
         self.answer_d = kwargs["answer_d"]
-        self.answer_time = kwargs["answer_time"]
+        self.answer_time = kwargs["answer_time"] if kwargs.get("answer_time") else 30  # noqa: E501
         self.correct_answer = kwargs["correct_answer"]
         self.correct_answer_text = kwargs["correct_answer_text"]
         self.answer_img = kwargs["answer_img"]
-        self.is_validated = kwargs["is_validated"]
+        self.is_validated = False
         self.is_error = False
         self.hide = False
 
@@ -107,3 +107,7 @@ class QuestionModel(db.Model):
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
+
+    def delete_from_db(self):
+        self.hide = True
+        self.save_to_db()

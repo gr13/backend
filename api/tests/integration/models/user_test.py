@@ -17,7 +17,7 @@ class UserTest(BaseTest):
         Creates a standard user to be used in tests
         """
         random_name = secrets.token_hex(8)
-        
+
         user = UserModel(
             email=f"{random_name}@email.com",
             username="name",

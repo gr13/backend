@@ -11,7 +11,7 @@ class GamePlayModel(db.Model):
         unique=False,
         nullable=True,
     )
-    player_name = db.Column(db.String(5), nullable=False)
+    player_name = db.Column(db.String(10), nullable=False)
     player_id = db.Column(
         db.Integer,
         db.ForeignKey("users.id"),
@@ -52,6 +52,7 @@ class GamePlayModel(db.Model):
         self.user_id = kwargs["user_id"]
         self.player_name = kwargs["player_name"]
         self.player_id = kwargs["player_id"] if kwargs.get("player_id") else None  # noqa: E501
+        self.game_id = kwargs["game_id"]
         self.question_id = kwargs["question_id"]
         self.answer = kwargs["answer"]
         self.is_answer_correct = kwargs["is_answer_correct"]
@@ -89,3 +90,7 @@ class GamePlayModel(db.Model):
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
+
+    def delete_from_db(self):
+        self.hide = True
+        self.save_to_db()
