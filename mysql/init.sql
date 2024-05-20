@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS users (
     log_user_id INT UNSIGNED NOT NULL DEFAULT 0,
     log_comment VARCHAR(255) NOT NULL DEFAULT "",
     PRIMARY KEY (id),
-    INDEX rights (right_id)
+    INDEX rights (right_id),
     UNIQUE (email)
 );
 
@@ -90,7 +90,7 @@ INSERT INTO users_log(logger_event, log_id, email, right_id, username,
 DELIMITER ;
 
 INSERT IGNORE INTO users (email, password, right_id, username, position, can_validate, can_edit, can_seelog, can_seeusers, hide, log_comment) VALUES (
-    "admin@gmail.com", "abcd", 5, "admin", "admin", 1, 1, 1, 1, 0, "initial user");
+    "admin@gmail.com", "scrypt:32768:8:1$pw6BewBI8gjP4eWq$019048452ce0c57c5f096e9dcd5581629bf658a6accc808acd37cf27c5028c6fad0c3b74ea4d7beb1abeecabbd11841d03b871ccce37ed2fd77ff28749b3eb8f", 5, "admin", "admin", 1, 1, 1, 1, 0, "initial user");
 
 -- ###################################################################
 -- table rights
