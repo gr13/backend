@@ -52,25 +52,25 @@ class UserRegister(Resource):
 
 class User(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('email',
+    parser.add_argument("email",
                         type=str,
                         required=True,
                         help="This field cannot be empty")
-    parser.add_argument('password',
+    parser.add_argument("password",
                         type=str,
                         required=False)
-    parser.add_argument('right_id',
+    parser.add_argument("right_id",
                         type=int,
                         required=False)
-    parser.add_argument('username',
+    parser.add_argument("username",
                         type=str,
                         required=False,
                         help="This field cannot be empty")
-    parser.add_argument('position',
+    parser.add_argument("position",
                         type=str,
                         required=False)
 
-    parser.add_argument('hide',
+    parser.add_argument("hide",
                         type=1,
                         choices=[0, 1],
                         required=False,
@@ -82,7 +82,7 @@ class User(Resource):
         user = UserModel.find_by_id(user_id)
         if user:
             return user.json(), 200
-        return {'message': "User not found"}, 404
+        return {"message": "User not found"}, 404
 
     @classmethod
     @jwt_required()
@@ -90,7 +90,7 @@ class User(Resource):
         user = UserModel.find_by_id(user_id)
         if user:
             user.delete_from_db()
-            return {'message': 'User deleted'}, 200
+            return {"message": "User deleted"}, 200
 
         return {"message": "User not found"}, 404
 
@@ -107,14 +107,14 @@ class User(Resource):
             else:
                 return {"message": "User creation requires password."}
 
-        if data['password'] is not None:
-            item.password = data['password']
-        if data['right_id'] is not None:
-            item.right_id = data['right_id']
-        if data['username'] is not None:
-            item.username = data['username']
-        if data['hide'] is not None:
-            item.hide = data['hide']
+        if data["password"] is not None:
+            item.password = data["password"]
+        if data["right_id"] is not None:
+            item.right_id = data["right_id"]
+        if data["username"] is not None:
+            item.username = data["username"]
+        if data["hide"] is not None:
+            item.hide = data["hide"]
         item.save_to_db()
 
         return item.json()
@@ -125,7 +125,7 @@ class UserLogin(Resource):
     def post(cls):
         data = _user_parser.parse_args()
 
-        user = UserModel.find_by_email(data['email'])
+        user = UserModel.find_by_email(data["email"])
 
         if user and user.right_id > 1 \
                 and user.check_password(data["password"]):
@@ -133,8 +133,8 @@ class UserLogin(Resource):
             refresh_token = create_refresh_token(user.id)
             logging.info(f"User logged in. {data['email']}")
             return {
-                'access_token': access_token,
-                'refresh_token': refresh_token
+                "access_token": access_token,
+                "refresh_token": refresh_token
             }, 200
         logging.info(f"Invalid credentials. {data['email']}")
         return {"message": "Invalid credentials"}, 401
@@ -143,7 +143,7 @@ class UserLogin(Resource):
 class UserLogout(Resource):
     @jwt_required()
     def post(self):
-        jti = get_jwt()['jti']
+        jti = get_jwt()["jti"]
         BLACKLIST.add(jti)
         logging.info("Successfully logged out.")
         return {"message": "Successfully logged out."}, 200

@@ -56,7 +56,7 @@ class GamePlayModel(db.Model):
         self.question_id = kwargs["question_id"]
         self.answer = kwargs["answer"]
         self.is_answer_correct = kwargs["is_answer_correct"]
-        self.hide = False
+        self.hide = 0
 
     def json(self):
         return {

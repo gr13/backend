@@ -66,9 +66,9 @@ class QuestionModel(db.Model):
         self.correct_answer = kwargs["correct_answer"]
         self.correct_answer_text = kwargs["correct_answer_text"]
         self.answer_img = kwargs["answer_img"]
-        self.is_validated = False
-        self.is_error = False
-        self.hide = False
+        self.is_validated = 0
+        self.is_error = 0
+        self.hide = 0
 
     def json(self):
         return {

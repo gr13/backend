@@ -89,6 +89,9 @@ INSERT INTO users_log(logger_event, log_id, email, right_id, username,
            );;
 DELIMITER ;
 
+INSERT IGNORE INTO users (email, password, right_id, username, position, can_validate, can_edit, can_seelog, can_seeusers, hide, log_comment) VALUES (
+    "admin@gmail.com", "abcd", 5, "admin", "admin", 1, 1, 1, 1, 0, "initial user");
+
 -- ###################################################################
 -- table rights
 -- ###################################################################

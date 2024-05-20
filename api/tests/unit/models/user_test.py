@@ -48,11 +48,13 @@ class UserTest(BaseTest):
                 "right_id": 2,
                 "right": None,
                 "username": "name",
-                "can_validate": False,
-                "can_edit": False,
-                "can_seelog": False,
-                "can_seeusers": False,
-                "hide": False
+                "can_validate": 0,
+                "can_edit": 0,
+                "can_seelog": 0,
+                "can_seeusers": 0,
+                "hide": 0,
+                "log_user_id": 0,
+                "log_comment": "testing",
             }
             actual: Dict = user.json()
             self.assertDictEqual(actual, expected,

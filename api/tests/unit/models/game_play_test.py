@@ -20,9 +20,10 @@ class GamePlayTest(BaseTest):
         return GamePlayModel(
             user_id=1,
             player_name="player",
+            game_id=1,
             question_id=1,
-            answer="A",
-            is_answer_correct=False,
+            answer=1,
+            is_answer_correct=0,
         )
 
     def test_create_game_play(self):
@@ -47,11 +48,11 @@ class GamePlayTest(BaseTest):
             "user_id": 1,
             "player_name": "player",
             "player_id": None,
-            "game_id": None,
+            "game_id": 1,
             "question_id": 1,
-            "answer": "A",
-            "is_answer_correct": False,
-            "hide": False,
+            "answer": 1,
+            "is_answer_correct": 0,
+            "hide": 0,
             "user": None,
             "player": None,
             "game": None,

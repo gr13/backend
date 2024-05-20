@@ -28,11 +28,11 @@ class GameModel(db.Model):
     def __init__(self, **kwargs):
         self.user_id = kwargs["user_id"]
         self.game_description = kwargs["game_description"]
-        self.recommend = kwargs["recommend"] if kwargs.get("recommend") else False  # noqa: E501
-        self.approved = kwargs["approved"] if kwargs.get("approved") else False
-        self.approved_user_id = kwargs["approved_user_id"] if kwargs.get("approved_user_id") else False  # noqa: E501
-        self.is_random = kwargs["is_random"] if kwargs.get("is_random") else False  # noqa: E501
-        self.is_multiplayer = kwargs["is_multiplayer"] if kwargs.get("is_multiplayer") else False  # noqa: E501
+        self.recommend = kwargs["recommend"] if kwargs.get("recommend") else 0  # noqa: E501
+        self.approved = kwargs["approved"] if kwargs.get("approved") else 0
+        self.approved_user_id = kwargs["approved_user_id"] if kwargs.get("approved_user_id") else 0  # noqa: E501
+        self.is_random = kwargs["is_random"] if kwargs.get("is_random") else 0  # noqa: E501
+        self.is_multiplayer = kwargs["is_multiplayer"] if kwargs.get("is_multiplayer") else 0  # noqa: E501
         self.number_of_questions = kwargs["number_of_questions"] if kwargs.get("number_of_questions") else 15  # noqa: E501
         self.game_uid = self._create_game_uid()
         self.hide = False

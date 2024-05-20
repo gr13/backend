@@ -19,7 +19,6 @@ class GameTest(BaseTest):
         """
         return GameModel(
             user_id=1,
-            game_uid="uuid",
             game_description="description",
         )
 
@@ -31,9 +30,6 @@ class GameTest(BaseTest):
         self.assertEqual(game.user_id, 1,
             "The user_id of the game after creation does not equal"
             " the constructor argument.")
-        self.assertEqual(game.game_uid, "uuid",
-            "The game_uid of the game after creation does not "
-            "equal the constructor argument.")
         self.assertEqual(game.game_description, "description",
             "The game_description of the game after creation does not "
             "equal the constructor argument.")
@@ -58,6 +54,7 @@ class GameTest(BaseTest):
             "user": None,
         }
         actual: Dict = game.json()
+        expected["game_uid"] = actual["game_uid"]
         self.assertDictEqual(actual, expected,
             f"User JSON is incorrect expected: {expected}, actual: "
                 "{actual}")

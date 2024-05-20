@@ -28,12 +28,14 @@ class UserModel(db.Model):
     username = db.Column(db.String(10), default="")
     position = db.Column(db.String(100), default="")
 
-    can_validate = db.Column(db.Boolean(), default=False)
-    can_edit = db.Column(db.Boolean(), default=False)
-    can_seelog = db.Column(db.Boolean(), default=False)
-    can_seeusers = db.Column(db.Boolean(), default=False)
+    can_validate = db.Column(db.Boolean(), default=False, nullable=False)
+    can_edit = db.Column(db.Boolean(), default=False, nullable=False)
+    can_seelog = db.Column(db.Boolean(), default=False, nullable=False)
+    can_seeusers = db.Column(db.Boolean(), default=False, nullable=False)
 
-    hide = db.Column(db.Boolean(), default=False)
+    hide = db.Column(db.Boolean(), default=False, nullable=False)
+    log_user_id = db.Column(db.Integer, nullable=False)
+    log_comment = db.Column(db.String(255), default="")
 
     @validates("email")
     def validate_email(self, key, email):
@@ -46,14 +48,18 @@ class UserModel(db.Model):
         self.password = self.set_password(kwargs["password"])
         self.right_id = 2
         self.position = "Not in use"
-        self.can_validate = False
-        self.can_edit = False
-        self.can_seelog = False
-        self.can_seeusers = False
-        self.hide = False
+        self.can_validate = 0
+        self.can_edit = 0
+        self.can_seelog = 0
+        self.can_seeusers = 0
+        self.hide = 0
+        self.log_user_id = 0
+        self.log_comment = "testing"
 
     def json(self):
-        # right = UserRightModel.find_by_id(self.right_id)
+        """
+        Return json representation of the class
+        """
         return {
             "id": self.id,
             "email": self.email,
@@ -64,7 +70,9 @@ class UserModel(db.Model):
             "can_edit": self.can_edit,
             "can_seelog": self.can_seelog,
             "can_seeusers": self.can_seeusers,
-            "hide": self.hide
+            "hide": self.hide,
+            "log_user_id": self.log_user_id,
+            "log_comment": self.log_comment,
         }
 
     @classmethod
@@ -84,8 +92,6 @@ class UserModel(db.Model):
         db.session.commit()
 
     def delete_from_db(self):
-        # db.session.delete(self)
-        # db.session.commit()
         self.hide = True
         self.save_to_db()
 

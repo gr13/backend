@@ -22,11 +22,11 @@ class UserTest(BaseTest):
             sub_chapter_id=1,
             question="test question",
             image_file="",
-            answer_a="answer_a",
-            answer_b="answer_b",
-            answer_c="answer_c",
-            answer_d="answer_d",
-            correct_answer="A",
+            answer_1="answer_a",
+            answer_2="answer_b",
+            answer_3="answer_c",
+            answer_4="answer_d",
+            correct_answer=1,
             correct_answer_text="correct_answer_text",
             answer_img="answer_img"
         )
