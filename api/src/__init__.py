@@ -101,11 +101,11 @@ def check_if_token_in_blacklist(jwt_header, jwt_payload) -> bool:
 # api.add_resource(RegionList, '/regions')
 
 
-api.add_resource(UserRegister, '/register')
-api.add_resource(User, '/user/<int:user_id>')
-api.add_resource(UserLogin, '/login')
-api.add_resource(UserLogout, '/logout')
-api.add_resource(UserList, '/users')
+api.add_resource(UserRegister, "/register")
+api.add_resource(User, "/user/<int:user_id>")
+api.add_resource(UserLogin, "/login")
+api.add_resource(UserLogout, "/logout")
+api.add_resource(UserList, "/users")
 
 
 @app.route("/")
