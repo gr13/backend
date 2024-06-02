@@ -76,7 +76,6 @@ def check_if_token_in_blacklist(jwt_header, jwt_payload) -> bool:
     # https://flask-jwt-extended.readthedocs.io/en/stable/blocklist_and_token_revoking/
     return jwt_payload["jti"] in BLACKLIST
 
-
 # @jwt.user_claims_loader
 # def add_claims_to_jwt(identity):
 #     user = UserModel.find_by_id(identity)

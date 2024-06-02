@@ -43,7 +43,11 @@ class UserRegister(Resource):
                          f" {data['email']}")
             return {"message": "A user with that username already "
                     "exists."}, 400
-        user = UserModel(data["email"], data["username"], data["password"])
+        user = UserModel(
+            email=data["email"],
+            username=data["username"],
+            password=data["password"]
+        )
         user.save_to_db()
 
         logging.info(f"User {data['email']} created successfully.")
