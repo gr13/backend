@@ -33,22 +33,25 @@ class UserRightTest(BaseTest):
         with self.app_context():
             right = UserRightModel.find_by_id(2)
             expected = {
-                "id": 2,
-                "email": "player@email.com",
-                "right_id": 2,
-                "right": {"id": 2, "right": "player"},
-                "username": "player",
-                "can_validate": None,
-                "can_edit": None,
-                "can_seelog": None,
-                "can_seeusers": None,
-                "hide": None
+                'id': 2,
+                'email': 'player@email.com',
+                'right_id': 2,
+                'right': {'id': 2, 'right': 'player'},
+                'username': 'player',
+                'can_validate': False,
+                'can_edit': False,
+                'can_seelog': False,
+                'can_seeusers': False,
+                'hide': False,
+                'log_user_id': 0,
+                'log_comment': None
             }
+
             actual: Dict = right.get_users_json()
             self.assertTrue(
                 actual.get("users"),
                 "users field is missing in get_users_json response"
             )
-            self.assertEqual(actual["users"][0], expected,
+            self.assertDictEqual(actual["users"][0], expected,
                 f"User JSON is incorrect expected: {expected}, actual: "
                     f"{actual}")

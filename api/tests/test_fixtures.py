@@ -51,7 +51,16 @@ class TestGlobalFixtures():
             INTO users (email, right_id, username, password, position)
             VALUES ("player@email.com", 2, "player","abc2", "blocked");
             """
-        sql_scripts = [user_blocked, user_player,]
+        user_admin = """
+            INSERT IGNORE
+            INTO users (email, password, right_id, username, position, can_validate, can_edit, can_seelog, can_seeusers, hide, log_comment)
+            VALUES ('admin@gmail.com', 'scrypt:32768:8:1$pw6BewBI8gjP4eWq$019048452ce0c57c5f096e9dcd5581629bf658a6accc808acd37cf27c5028c6fad0c3b74ea4d7beb1abeecabbd11841d03b871ccce37ed2fd77ff28749b3eb8f', 5, 'admin', 'admin', 1, 1, 1, 1, 0, 'initial user');
+            """   # noqa:E501
+        sql_scripts = [
+            user_blocked,
+            user_player,
+            user_admin,
+        ]
         for script in sql_scripts:
             TestGlobalFixtures.add_row_to_table(script)
 
