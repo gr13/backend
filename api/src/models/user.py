@@ -95,10 +95,16 @@ class UserModel(db.Model):
         self.hide = True
         self.save_to_db()
 
-    def set_password(self, _password):
-        return generate_password_hash(_password)
+    def set_password(self, _password: str):
+        """
+        sets password
+        """
+        self.password = generate_password_hash(_password)
 
-    def check_password(self, _password):
+    def check_password(self, _password: str) -> bool:
+        """
+        checks if password is right
+        """
         return check_password_hash(self.password, _password)
 
     @classmethod

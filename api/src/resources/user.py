@@ -57,28 +57,28 @@ class UserRegister(Resource):
 class User(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument("email",
-                        type=str,
-                        required=True,
-                        help="This field cannot be empty")
+                    type=str,
+                    required=True,
+                    help="This field cannot be empty")
     parser.add_argument("password",
-                        type=str,
-                        required=False)
+                    type=str,
+                    required=False)
     parser.add_argument("right_id",
-                        type=int,
-                        required=False)
+                    type=int,
+                    required=False)
     parser.add_argument("username",
-                        type=str,
-                        required=False,
-                        help="This field cannot be empty")
+                    type=str,
+                    required=False,
+                    help="This field cannot be empty")
     parser.add_argument("position",
-                        type=str,
-                        required=False)
+                    type=str,
+                    required=False)
 
     parser.add_argument("hide",
-                        type=1,
-                        choices=[0, 1],
-                        required=False,
-                        help="This field accepts only 0 and 1")
+                    # type=1,
+                    choices=["0", "1"],
+                    required=False,
+                    help="This field accepts only 0 and 1. Error: {error_msg}")
 
     @classmethod
     @jwt_required()
@@ -112,13 +112,13 @@ class User(Resource):
                 return {"message": "User creation requires password."}
 
         if data["password"] is not None:
-            item.password = data["password"]
+            item.set_password(data["password"])
         if data["right_id"] is not None:
             item.right_id = data["right_id"]
         if data["username"] is not None:
             item.username = data["username"]
         if data["hide"] is not None:
-            item.hide = data["hide"]
+            item.hide = int(data["hide"])
         item.save_to_db()
 
         return item.json()

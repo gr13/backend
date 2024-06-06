@@ -25,7 +25,7 @@ class UserTest(BaseTest):
                     "/login",
                     data=json.dumps({
                         "email": "admin@gmail.com",
-                        "password": "test_password",
+                        "password": "test_update",
                     }),
                     headers={"Content-Type": "application/json"}
                 )
@@ -182,7 +182,7 @@ class UserTest(BaseTest):
                 # check that user was delete correctly (hided)
                 self.assertTrue(new_user.hide)
 
-    def test_put_user_username_update(self):
+    def test_put_user_update(self):
         """
         Tests user was put correctly
         """
@@ -214,7 +214,10 @@ class UserTest(BaseTest):
                 # put user
                 user_data = {
                     "email": random_email,
-                    "username": "name2"
+                    "username": "name2",
+                    "right_id": 1,
+                    "hide": str(1),
+                    "password": "test_update",
                 }
                 r = c.put(
                     f"/user/{new_user.id}",
@@ -226,5 +229,9 @@ class UserTest(BaseTest):
                 )
                 self.assertEqual(r.status_code, 200)
 
-                # check that username was updated
+                # check that user was updated correctly
                 self.assertEqual(new_user.username, "name2")
+                self.assertEqual(new_user.right_id, 1)
+                self.assertEqual(new_user.hide, 1)
+                self.assertTrue(new_user.check_password("test_update"))
+                self.assertFalse(new_user.check_password("test_password"))

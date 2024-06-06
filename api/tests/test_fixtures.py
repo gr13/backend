@@ -54,7 +54,7 @@ class TestGlobalFixtures():
         user_admin = """
             INSERT IGNORE
             INTO users (email, password, right_id, username, position, can_validate, can_edit, can_seelog, can_seeusers, hide, log_comment)
-            VALUES ('admin@gmail.com', 'scrypt:32768:8:1$pw6BewBI8gjP4eWq$019048452ce0c57c5f096e9dcd5581629bf658a6accc808acd37cf27c5028c6fad0c3b74ea4d7beb1abeecabbd11841d03b871ccce37ed2fd77ff28749b3eb8f', 5, 'admin', 'admin', 1, 1, 1, 1, 0, 'initial user');
+            VALUES ('admin@gmail.com', 'scrypt:32768:8:1$c8fK91RXQi0svLP5$2dcee96071e69c10cab3d9e5c5cdcaa26d0529984ff94502eeb7be0ef7a241e8dc03ee77ff7eed2907df5122b9bfc58dde7f6d44e51d93ee683f478c2ca74f56', 5, 'admin', 'admin', 1, 1, 1, 1, 0, 'initial user');
             """   # noqa:E501
         sql_scripts = [
             user_blocked,
