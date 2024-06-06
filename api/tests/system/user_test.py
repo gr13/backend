@@ -235,3 +235,38 @@ class UserTest(BaseTest):
                 self.assertEqual(new_user.hide, 1)
                 self.assertTrue(new_user.check_password("test_update"))
                 self.assertFalse(new_user.check_password("test_password"))
+
+    def test_user_list(self):
+        """
+        Tests user list
+        """
+        with self.app() as c:
+            with self.app_context():
+                r = c.get(
+                    "/users",
+                    headers={
+                        "Authorization": self.auth_header,
+                    }
+                )
+                self.assertEqual(r.status_code, 200)
+                data = json.loads(r.data)
+                self.assertIsNotNone(data.get("users"))
+                self.assertGreater(len(data.get("users")), 0)
+                expected = {
+                    "id": 1,
+                    "email": "blocked@email.com",
+                    "right_id": 1,
+                    "right": {"id": 1, "right": "blocked"},
+                    "username": "blocked",
+                    "can_validate": False,
+                    "can_edit": False,
+                    "can_seelog": False,
+                    "can_seeusers": False,
+                    "hide": False,
+                    "log_user_id": 0,
+                    "log_comment": None
+                }
+                self.assertDictEqual(
+                    d1=expected,
+                    d2=data["users"][0]
+                )
